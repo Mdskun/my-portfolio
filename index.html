@@ -1,1483 +1,2808 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Manthan Soni // DevOps Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ─────────────────────────────────────────
-   ROOT & RESET
-───────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#04070d;
-  --bg1:#070c14;
-  --bg2:#0a1020;
-  --bg3:#0d1528;
-  --green:#00ff88;
-  --green2:#00cc6a;
-  --cyan:#00d4ff;
-  --red:#ff4444;
-  --yellow:#ffd700;
-  --purple:#9d6fff;
-  --border:rgba(0,255,136,0.1);
-  --border2:rgba(0,255,136,0.2);
-  --text:#c8d8e8;
-  --muted:#4a6070;
-  --mono:'Azeret Mono',monospace;
-  --sans:'Space Grotesk',sans-serif;
-}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--mono);
-  font-size:13px;
-  line-height:1.7;
-  overflow-x:hidden;
-  cursor:none;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Manthan Soni // DevOps & Cloud Engineer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-/* ─────────────────────────────────────────
-   CUSTOM CURSOR
-───────────────────────────────────────── */
-#cursor{
-  position:fixed;z-index:9999;
-  pointer-events:none;
-  mix-blend-mode:screen;
-}
-#cursor-ring{
-  width:32px;height:32px;
-  border:1px solid var(--green);
-  border-radius:50%;
-  position:absolute;
-  transform:translate(-50%,-50%);
-  transition:width 0.2s,height 0.2s,border-color 0.2s,opacity 0.2s;
-  opacity:0.6;
-}
-#cursor-dot{
-  width:4px;height:4px;
-  background:var(--green);
-  border-radius:50%;
-  position:absolute;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 6px var(--green);
-}
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring{
-  width:48px;height:48px;
-  border-color:var(--cyan);
-  opacity:1;
-}
+    :root {
+      --bg: #04070d;
+      --bg1: #070c14;
+      --bg2: #0b1222;
+      --bg3: #0f1830;
+      --green: #00ff88;
+      --green2: #00cc6a;
+      --gdim: rgba(0, 255, 136, 0.07);
+      --cyan: #00d4ff;
+      --red: #ff4444;
+      --yellow: #ffd700;
+      --purple: #9d6fff;
+      --orange: #ff7b35;
+      --bdr: rgba(0, 255, 136, 0.08);
+      --bdr2: rgba(0, 255, 136, 0.2);
+      --text: #c0d4e4;
+      --muted: #3e5260;
+      --muted2: #5a7080;
+      --mono: 'Azeret Mono', monospace;
+      --sans: 'Space Grotesk', sans-serif;
+    }
 
-/* ─────────────────────────────────────────
-   NOISE + GRID OVERLAY
-───────────────────────────────────────── */
-#noise{
-  position:fixed;inset:0;z-index:998;
-  pointer-events:none;
-  opacity:0.018;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px;
-}
-#grid{
-  position:fixed;inset:0;z-index:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(0,255,136,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,136,0.025) 1px,transparent 1px);
-  background-size:48px 48px;
-}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* ─────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */
-::-webkit-scrollbar{width:2px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--green2)}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none
+    }
 
-/* ─────────────────────────────────────────
-   NAV
-───────────────────────────────────────── */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:0 3rem;height:56px;
-  border-bottom:1px solid var(--border);
-  background:rgba(4,7,13,0.85);
-  backdrop-filter:blur(16px);
-}
-.nav-id{
-  display:flex;align-items:center;gap:10px;
-  font-size:12px;color:var(--green);
-  text-decoration:none;
-  letter-spacing:0.04em;
-}
-.nav-id::before{content:'[';color:var(--muted)}
-.nav-id::after{content:']';color:var(--muted)}
-.nav-links{
-  display:flex;gap:2rem;list-style:none;
-}
-.nav-links a{
-  color:var(--muted);text-decoration:none;
-  font-size:11px;letter-spacing:0.1em;
-  text-transform:uppercase;
-  transition:color 0.2s;
-  position:relative;
-}
-.nav-links a::before{
-  content:'./';
-  color:var(--green);
-  opacity:0;
-  transition:opacity 0.2s;
-}
-.nav-links a:hover{color:var(--text)}
-.nav-links a:hover::before{opacity:1}
+    ::-webkit-scrollbar {
+      width: 2px
+    }
 
-.nav-uptime{
-  display:flex;align-items:center;gap:8px;
-  font-size:11px;color:var(--muted);
-}
-.uptime-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-  animation:heartbeat 2s ease infinite;
-}
-@keyframes heartbeat{
-  0%,100%{transform:scale(1);opacity:1}
-  50%{transform:scale(1.4);opacity:0.7}
-}
-#uptime-counter{color:var(--green)}
+    ::-webkit-scrollbar-track {
+      background: var(--bg)
+    }
 
-/* ─────────────────────────────────────────
-   BOOT SCREEN (overlays everything on load)
-───────────────────────────────────────── */
-#boot{
-  position:fixed;inset:0;z-index:9000;
-  background:var(--bg);
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
-  padding:4rem;
-  transition:opacity 0.8s ease;
-}
-#boot.gone{opacity:0;pointer-events:none}
-.boot-line{
-  font-size:12px;color:var(--green);
-  margin-bottom:3px;
-  opacity:0;
-  transform:translateX(-8px);
-  transition:opacity 0.15s,transform 0.15s;
-}
-.boot-line.show{opacity:1;transform:none}
-.boot-line.dim{color:var(--muted)}
-.boot-line.ok::after{content:' [  OK  ]';color:var(--green)}
-.boot-line.warn::after{content:' [ WARN ]';color:var(--yellow)}
-#boot-bar-wrap{
-  margin-top:2rem;width:320px;
-  height:2px;background:rgba(0,255,136,0.1);
-  border-radius:1px;overflow:hidden;
-}
-#boot-bar{
-  height:100%;width:0;
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-  transition:width 0.1s linear;
-}
+    ::-webkit-scrollbar-thumb {
+      background: #1e3040
+    }
 
-/* ─────────────────────────────────────────
-   HERO
-───────────────────────────────────────── */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0;
-  padding-top:56px;
-  position:relative;
-  z-index:1;
-}
+    /* CURSOR */
+    #cur {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: screen
+    }
 
-/* LEFT: big name area */
-.hero-left{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:5rem 3rem 4rem;
-  border-right:1px solid var(--border);
-  position:relative;
-}
-.hero-eyebrow{
-  display:flex;align-items:center;gap:8px;
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.18em;text-transform:uppercase;
-  margin-bottom:1.5rem;
-}
-.eyebrow-slash{color:var(--green);margin:0 2px}
+    #cur-ring {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--green);
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      opacity: .5;
+      transition: width .2s, height .2s, opacity .2s
+    }
 
-.hero-name{
-  font-family:var(--sans);
-  font-size:clamp(44px,6vw,72px);
-  font-weight:700;
-  line-height:0.95;
-  letter-spacing:-2px;
-  color:#fff;
-  margin-bottom:0.25rem;
-}
-.hero-name .line-dim{
-  display:block;
-  color:rgba(255,255,255,0.15);
-  font-weight:300;
-  letter-spacing:-1px;
-}
+    #cur-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--green);
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 6px var(--green)
+    }
 
-.hero-role-line{
-  font-size:12px;color:var(--muted);
-  letter-spacing:0.12em;text-transform:uppercase;
-  margin:1.25rem 0 2rem;
-  display:flex;align-items:center;gap:8px;
-}
-.role-sep{color:var(--green);opacity:0.4}
+    body:has(a:hover, button:hover, .clickable:hover) #cur-ring {
+      width: 42px;
+      height: 42px;
+      opacity: .9;
+      border-color: var(--cyan)
+    }
 
-.hero-desc{
-  font-size:13px;color:var(--muted);
-  line-height:1.85;max-width:440px;
-  margin-bottom:2.5rem;
-}
-.hero-desc strong{color:var(--text);font-weight:400}
+    /* NOISE */
+    #noise {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px
+    }
 
-.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+    #gridoverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(0, 255, 136, .02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, .02) 1px, transparent 1px);
+      background-size: 52px 52px
+    }
 
-.cta-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 20px;
-  background:var(--green);color:#04070d;
-  font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:0.08em;text-transform:uppercase;
-  text-decoration:none;border:none;cursor:none;
-  border-radius:2px;
-  transition:background 0.2s,box-shadow 0.2s;
-}
-.cta-primary:hover{
-  background:#00ffaa;
-  box-shadow:0 0 20px rgba(0,255,136,0.4);
-}
-.cta-secondary{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 20px;
-  background:transparent;color:var(--muted);
-  font-family:var(--mono);font-size:11px;
-  letter-spacing:0.06em;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:2px;cursor:none;
-  transition:color 0.2s,border-color 0.2s;
-}
-.cta-secondary:hover{color:var(--text);border-color:var(--muted)}
+    /* BOOT */
+    #boot {
+      position: fixed;
+      inset: 0;
+      z-index: 8000;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      transition: opacity .8s
+    }
 
-/* corner coords decoration */
-.hero-coords{
-  position:absolute;bottom:2rem;left:3rem;
-  font-size:10px;color:var(--muted);
-  opacity:0.4;letter-spacing:0.08em;
-}
+    #boot.out {
+      opacity: 0;
+      pointer-events: none
+    }
 
-/* RIGHT: live terminal pane */
-.hero-right{
-  display:flex;flex-direction:column;
-  background:var(--bg1);
-  position:relative;
-  overflow:hidden;
-}
+    .bl {
+      font-size: 12px;
+      color: var(--green);
+      margin-bottom: 2px;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity .12s, transform .12s
+    }
 
-/* top multi-tab bar */
-.terminal-tabs{
-  display:flex;
-  border-bottom:1px solid var(--border);
-  background:rgba(0,0,0,0.3);
-  overflow-x:auto;
-  flex-shrink:0;
-}
-.t-tab{
-  padding:10px 20px;font-size:11px;
-  color:var(--muted);white-space:nowrap;
-  border-right:1px solid var(--border);
-  cursor:none;
-  transition:color 0.2s,background 0.2s;
-}
-.t-tab.active{
-  color:var(--green);
-  background:var(--bg1);
-  border-bottom:1px solid var(--bg1);
-  margin-bottom:-1px;
-}
-.t-tab:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.02)}
+    .bl.vis {
+      opacity: 1;
+      transform: none
+    }
 
-/* terminal body */
-.terminal-content{
-  flex:1;padding:1.5rem 2rem;
-  overflow-y:auto;overflow-x:hidden;
-  font-size:12px;
-  position:relative;
-}
-.terminal-content::-webkit-scrollbar{width:2px}
+    .bl.d {
+      color: var(--muted2)
+    }
 
-.t-prompt-line{
-  display:flex;align-items:baseline;gap:8px;
-  margin-bottom:2px;
-}
-.t-user{color:var(--green)}
-.t-at{color:var(--muted)}
-.t-host{color:var(--cyan)}
-.t-path{color:var(--purple)}
-.t-dollar{color:var(--text)}
-.t-input{color:#fff}
+    .bl.ok::after {
+      content: ' [  OK  ]';
+      color: var(--green)
+    }
 
-.t-output{
-  margin:4px 0 14px 0;
-  color:var(--muted);
-  padding-left:2px;
-}
-.t-out-line{margin-bottom:1px}
-.t-green{color:var(--green)}
-.t-cyan{color:var(--cyan)}
-.t-yellow{color:var(--yellow)}
-.t-red{color:var(--red)}
-.t-white{color:#fff}
-.t-purple{color:var(--purple)}
-.t-dim{color:rgba(74,96,112,0.6)}
+    .bl.wn::after {
+      content: ' [ WARN ]';
+      color: var(--yellow)
+    }
 
-/* blinking cursor in terminal */
-.t-cursor{
-  display:inline-block;
-  width:7px;height:13px;
-  background:var(--green);
-  vertical-align:-2px;
-  animation:blink 1s step-end infinite;
-  box-shadow:0 0 5px var(--green);
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .bl.er::after {
+      content: ' [FAILED]';
+      color: var(--red)
+    }
 
-/* bottom status bar */
-.terminal-status{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:6px 1.5rem;
-  background:var(--green);
-  color:#04070d;
-  font-size:10px;font-weight:700;
-  letter-spacing:0.08em;
-  flex-shrink:0;
-}
-.status-left,.status-right{display:flex;align-items:center;gap:12px}
-.status-sep{opacity:0.4}
+    #bbar {
+      margin-top: 1.5rem;
+      width: 280px;
+      height: 1px;
+      background: rgba(0, 255, 136, .1)
+    }
 
-/* ─────────────────────────────────────────
-   MARQUEE STRIP
-───────────────────────────────────────── */
-.marquee-strip{
-  position:relative;z-index:1;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  background:var(--bg1);
-  padding:10px 0;overflow:hidden;
-}
-.marquee-track{
-  display:flex;gap:0;
-  animation:marquee 25s linear infinite;
-  width:max-content;
-}
-.marquee-item{
-  display:flex;align-items:center;gap:10px;
-  padding:0 2rem;
-  font-size:11px;color:var(--muted);
-  letter-spacing:0.08em;white-space:nowrap;
-}
-.marquee-item .dot{
-  width:4px;height:4px;border-radius:50%;
-  background:var(--green);opacity:0.5;
-}
-.marquee-item.hi{color:var(--green)}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    #bfill {
+      height: 100%;
+      width: 0;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      transition: width .08s linear
+    }
 
-/* ─────────────────────────────────────────
-   ABOUT
-───────────────────────────────────────── */
-#about{
-  position:relative;z-index:1;
-  padding:6rem 3rem;
-  display:grid;
-  grid-template-columns:280px 1fr;
-  gap:5rem;
-  border-bottom:1px solid var(--border);
-  max-width:1200px;margin:0 auto;
-}
-.about-sidebar{
-  position:sticky;top:80px;
-  align-self:start;
-}
-.section-label{
-  font-size:10px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--muted);
-  margin-bottom:0.5rem;
-}
-.section-num{
-  font-family:var(--sans);
-  font-size:64px;font-weight:700;
-  line-height:1;
-  color:rgba(255,255,255,0.04);
-  letter-spacing:-3px;
-  margin-bottom:1rem;
-}
-.section-title-big{
-  font-family:var(--sans);
-  font-size:28px;font-weight:600;
-  color:#fff;letter-spacing:-0.5px;
-  margin-bottom:1rem;
-}
-.sidebar-line{
-  width:24px;height:2px;
-  background:var(--green);
-  margin-bottom:1.5rem;
-}
-.about-sidebar p{
-  font-size:12px;color:var(--muted);
-  line-height:1.8;
-}
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2.5rem;
+      height: 50px;
+      background: rgba(4, 7, 13, .9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--bdr)
+    }
 
-.about-main{}
-.about-bio{
-  font-size:14px;color:var(--text);
-  line-height:1.9;margin-bottom:2.5rem;
-}
-.about-bio strong{
-  color:var(--green);font-weight:400;
-}
+    .nav-brand {
+      font-size: 12px;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: .04em
+    }
 
-/* stat boxes */
-.stat-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);
-  border-radius:4px;overflow:hidden;
-  margin-bottom:2.5rem;
-}
-.stat-box{
-  background:var(--bg1);
-  padding:1.25rem;text-align:center;
-  position:relative;overflow:hidden;
-}
-.stat-box::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;
-  height:2px;
-  background:var(--green);
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:transform 0.4s ease;
-}
-.stat-box:hover::before{transform:scaleX(1)}
-.stat-val{
-  font-family:var(--sans);
-  font-size:28px;font-weight:700;
-  color:var(--green);line-height:1;
-  margin-bottom:4px;
-}
-.stat-lbl{
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.1em;text-transform:uppercase;
-}
+    .nav-brand span {
+      color: var(--muted2)
+    }
 
-/* cert chips */
-.cert-row{
-  display:flex;flex-wrap:wrap;gap:8px;
-}
-.cert-chip{
-  display:flex;align-items:center;gap:7px;
-  padding:7px 12px;
-  background:rgba(0,255,136,0.04);
-  border:1px solid rgba(0,255,136,0.12);
-  border-radius:3px;
-  font-size:11px;color:var(--text);
-  transition:background 0.2s,border-color 0.2s;
-}
-.cert-chip:hover{
-  background:rgba(0,255,136,0.08);
-  border-color:rgba(0,255,136,0.25);
-}
-.cert-chip-icon{font-size:13px}
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none
+    }
 
-/* ─────────────────────────────────────────
-   PROJECTS
-───────────────────────────────────────── */
-#projects{
-  position:relative;z-index:1;
-  padding:6rem 3rem;
-  max-width:1200px;margin:0 auto;
-}
-.projects-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:3rem;
-}
-.projects-header-left .section-label{margin-bottom:4px}
-.projects-title{
-  font-family:var(--sans);
-  font-size:32px;font-weight:700;
-  color:#fff;letter-spacing:-0.8px;
-}
-.projects-count{
-  font-size:11px;color:var(--muted);
-  border:1px solid var(--border);
-  padding:6px 14px;border-radius:2px;
-}
-.projects-count span{color:var(--green)}
+    .nav-links a {
+      color: var(--muted2);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .2s
+    }
 
-/* project cards in a big list */
-.proj-list{
-  display:flex;flex-direction:column;
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);
-  border-radius:6px;overflow:hidden;
-}
+    .nav-links a:hover {
+      color: var(--green)
+    }
 
-.proj-row{
-  display:grid;
-  grid-template-columns:56px 1fr auto;
-  align-items:stretch;
-  background:var(--bg1);
-  transition:background 0.2s;
-  position:relative;
-  overflow:hidden;
-}
-.proj-row::before{
-  content:'';
-  position:absolute;left:0;top:0;bottom:0;
-  width:2px;background:var(--green);
-  transform:scaleY(0);
-  transition:transform 0.3s ease;
-}
-.proj-row:hover{background:var(--bg2)}
-.proj-row:hover::before{transform:scaleY(1)}
+    .nav-live {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: var(--muted2)
+    }
 
-.proj-index{
-  display:flex;align-items:center;justify-content:center;
-  border-right:1px solid var(--border);
-  font-size:11px;color:var(--muted);
-  font-weight:300;
-}
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 7px var(--green);
+      animation: hb 2s ease infinite
+    }
 
-.proj-body{
-  padding:1.75rem 2rem;
-  display:flex;flex-direction:column;
-  gap:10px;
-}
-.proj-top-row{
-  display:flex;align-items:center;gap:12px;
-}
-.proj-name{
-  font-family:var(--sans);
-  font-size:18px;font-weight:600;
-  color:#fff;letter-spacing:-0.2px;
-}
-.proj-featured{
-  font-size:9px;padding:3px 8px;
-  background:rgba(0,255,136,0.1);
-  color:var(--green);
-  border:1px solid rgba(0,255,136,0.2);
-  border-radius:2px;letter-spacing:0.1em;text-transform:uppercase;
-}
-.proj-desc{
-  font-size:12px;color:var(--muted);
-  line-height:1.75;max-width:600px;
-}
-.proj-tech{
-  display:flex;flex-wrap:wrap;gap:5px;
-}
-.tech-pill{
-  font-size:10px;padding:3px 9px;
-  border-radius:2px;
-  background:rgba(255,255,255,0.03);
-  color:var(--muted);
-  border:1px solid rgba(255,255,255,0.06);
-  letter-spacing:0.04em;
-}
-.tech-pill.hi{
-  background:rgba(0,212,255,0.06);
-  color:var(--cyan);
-  border-color:rgba(0,212,255,0.15);
-}
+    @keyframes hb {
 
-.proj-actions{
-  display:flex;flex-direction:column;
-  align-items:flex-end;justify-content:center;
-  gap:8px;padding:1.75rem 2rem;
-  border-left:1px solid var(--border);
-  min-width:120px;
-}
-.proj-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:6px 12px;
-  font-family:var(--mono);font-size:11px;
-  text-decoration:none;
-  border:1px solid var(--border);color:var(--muted);
-  border-radius:2px;cursor:none;
-  transition:color 0.2s,border-color 0.2s;
-  white-space:nowrap;
-}
-.proj-btn:hover{color:var(--green);border-color:rgba(0,255,136,0.3)}
+      0%,
+      100% {
+        transform: scale(1)
+      }
 
-/* ─────────────────────────────────────────
-   SKILLS — Radial + grouped
-───────────────────────────────────────── */
-#skills{
-  position:relative;z-index:1;
-  padding:6rem 3rem;
-  background:var(--bg1);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-.skills-inner{max-width:1200px;margin:0 auto}
+      50% {
+        transform: scale(1.5);
+        opacity: .6
+      }
+    }
 
-.skills-top{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:3.5rem;
-}
-.skills-title{
-  font-family:var(--sans);
-  font-size:32px;font-weight:700;
-  color:#fff;letter-spacing:-0.8px;
-}
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 50px;
+      position: relative;
+      z-index: 1
+    }
 
-.skills-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:1.5rem;
-}
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.5rem 3rem;
+      border-right: 1px solid var(--bdr);
+      position: relative;
+      overflow: hidden
+    }
 
-.skill-category{
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:6px;
-  overflow:hidden;
-}
-.skill-cat-header{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 16px;
-  background:rgba(0,0,0,0.3);
-  border-bottom:1px solid var(--border);
-}
-.skill-cat-icon{font-size:16px}
-.skill-cat-name{
-  font-size:11px;color:var(--text);
-  letter-spacing:0.08em;text-transform:uppercase;
-  flex:1;
-}
-.skill-cat-count{
-  font-size:10px;color:var(--muted);
-}
-.skill-cat-body{padding:1rem 1.25rem}
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 255, 136, .025) 0%, transparent 65%);
+      pointer-events: none
+    }
 
-.skill-item{
-  display:flex;align-items:center;gap:12px;
-  padding:7px 0;
-  border-bottom:1px solid rgba(255,255,255,0.03);
-}
-.skill-item:last-child{border:none}
-.skill-icon-sm{font-size:14px;width:20px;text-align:center}
-.skill-label{
-  flex:1;font-size:12px;color:var(--text);
-}
-.skill-lvl-bar{
-  width:64px;height:2px;
-  background:rgba(255,255,255,0.06);
-  border-radius:1px;overflow:hidden;
-}
-.skill-lvl-fill{
-  height:100%;border-radius:1px;
-  background:var(--green);
-  box-shadow:0 0 4px var(--green);
-  transition:width 1.2s cubic-bezier(0.4,0,0.2,1);
-}
-.skill-lvl-fill.cyan{background:var(--cyan);box-shadow:0 0 4px var(--cyan)}
-.skill-lvl-fill.purple{background:var(--purple);box-shadow:0 0 4px var(--purple)}
-.skill-pct{
-  font-size:10px;color:var(--muted);
-  min-width:28px;text-align:right;
-}
+    .h-pre {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
 
-/* bottom tool icons row */
-.tools-row{
-  display:flex;flex-wrap:wrap;gap:8px;
-  margin-top:2rem;
-  padding-top:2rem;
-  border-top:1px solid var(--border);
-}
-.tool-chip{
-  display:flex;align-items:center;gap:6px;
-  padding:6px 12px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:2px;
-  font-size:11px;color:var(--muted);
-  transition:color 0.2s,border-color 0.2s;
-}
-.tool-chip:hover{color:var(--text);border-color:var(--muted)}
+    .h-pre::before {
+      content: '▶';
+      color: var(--green);
+      font-size: 8px
+    }
 
-/* ─────────────────────────────────────────
-   CONTACT
-───────────────────────────────────────── */
-#contact{
-  position:relative;z-index:1;
-  padding:6rem 3rem;
-  max-width:1200px;margin:0 auto;
-}
-.contact-wrap{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:5rem;align-items:start;
-}
-.contact-left{}
-.contact-pre{
-  font-size:11px;color:var(--muted);
-  letter-spacing:0.12em;text-transform:uppercase;
-  margin-bottom:0.75rem;
-}
-.contact-heading{
-  font-family:var(--sans);
-  font-size:clamp(28px,4vw,44px);
-  font-weight:700;line-height:1.1;
-  letter-spacing:-1px;color:#fff;
-  margin-bottom:1.25rem;
-}
-.contact-heading span{color:var(--green)}
-.contact-body{
-  font-size:13px;color:var(--muted);
-  line-height:1.85;margin-bottom:2.5rem;
-}
-.contact-list{
-  display:flex;flex-direction:column;gap:10px;
-}
-.c-item{
-  display:flex;align-items:center;gap:14px;
-  padding:12px 16px;
-  background:var(--bg1);
-  border:1px solid var(--border);
-  border-radius:4px;
-  text-decoration:none;cursor:none;
-  transition:border-color 0.2s,background 0.2s;
-}
-.c-item:hover{border-color:var(--border2);background:var(--bg2)}
-.c-item-icon{
-  width:36px;height:36px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,255,136,0.06);
-  border:1px solid rgba(0,255,136,0.12);
-  border-radius:4px;font-size:16px;
-  flex-shrink:0;
-}
-.c-item-text{flex:1}
-.c-item-label{
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.1em;text-transform:uppercase;
-  margin-bottom:1px;
-}
-.c-item-val{font-size:13px;color:var(--text)}
-.c-item-arrow{color:var(--muted);font-size:16px;transition:color 0.2s,transform 0.2s}
-.c-item:hover .c-item-arrow{color:var(--green);transform:translate(2px,-2px)}
+    .h-name {
+      font-family: var(--sans);
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 700;
+      line-height: .95;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: .5rem
+    }
 
-/* form */
-.contact-form{
-  display:flex;flex-direction:column;gap:16px;
-}
-.cf-row{display:flex;flex-direction:column;gap:5px}
-.cf-label{
-  font-size:10px;color:var(--muted);
-  letter-spacing:0.12em;text-transform:uppercase;
-}
-.cf-input,.cf-ta{
-  background:var(--bg1);
-  border:1px solid var(--border);
-  border-radius:3px;
-  padding:10px 14px;
-  color:var(--text);
-  font-family:var(--mono);font-size:12px;
-  outline:none;resize:none;
-  transition:border-color 0.2s,box-shadow 0.2s;
-}
-.cf-input:focus,.cf-ta:focus{
-  border-color:rgba(0,255,136,0.3);
-  box-shadow:0 0 0 3px rgba(0,255,136,0.05);
-}
-.cf-ta{height:120px}
-.cf-submit{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:11px 22px;
-  background:transparent;
-  color:var(--green);
-  font-family:var(--mono);font-size:12px;
-  letter-spacing:0.06em;
-  border:1px solid rgba(0,255,136,0.3);
-  cursor:none;border-radius:3px;
-  align-self:flex-start;
-  transition:background 0.2s,box-shadow 0.2s;
-}
-.cf-submit:hover{
-  background:rgba(0,255,136,0.06);
-  box-shadow:0 0 16px rgba(0,255,136,0.15);
-}
-.cf-submit::before{content:'$ ';color:var(--muted)}
+    .h-name .ghost {
+      color: rgba(255, 255, 255, .12);
+      font-weight: 300
+    }
 
-/* ─────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────── */
-footer{
-  border-top:1px solid var(--border);
-  padding:1.5rem 3rem;
-  display:flex;justify-content:space-between;align-items:center;
-  position:relative;z-index:1;
-}
-.footer-left{
-  font-size:11px;color:var(--muted);
-}
-.footer-left span{color:var(--green)}
-.footer-right{
-  display:flex;align-items:center;gap:16px;
-}
-.footer-link{
-  font-size:11px;color:var(--muted);
-  text-decoration:none;
-  transition:color 0.2s;
-}
-.footer-link:hover{color:var(--green)}
+    .h-tagline {
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin: 1.25rem 0 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
 
-/* ─────────────────────────────────────────
-   FADE-IN OBSERVER
-───────────────────────────────────────── */
-.reveal{
-  opacity:0;transform:translateY(28px);
-  transition:opacity 0.7s ease,transform 0.7s ease;
-}
-.reveal.up{opacity:1;transform:none}
-.reveal-delay-1{transition-delay:0.1s}
-.reveal-delay-2{transition-delay:0.2s}
-.reveal-delay-3{transition-delay:0.3s}
+    .h-tagline .sep {
+      color: var(--green);
+      opacity: .35
+    }
 
-/* ─────────────────────────────────────────
-   RESPONSIVE
-───────────────────────────────────────── */
-@media(max-width:900px){
-  #hero{grid-template-columns:1fr;grid-template-rows:auto auto}
-  .hero-right{min-height:420px}
-  #about{grid-template-columns:1fr;gap:2rem}
-  .about-sidebar{position:static}
-  .stat-row{grid-template-columns:1fr 1fr}
-  .contact-wrap{grid-template-columns:1fr;gap:3rem}
-  .skills-grid{grid-template-columns:1fr}
-  #nav{padding:0 1.5rem}
-  .hero-left{padding:4rem 1.5rem 3rem}
-  #about,#projects,#contact{padding:4rem 1.5rem}
-  #skills{padding:4rem 1.5rem}
-  .proj-row{grid-template-columns:40px 1fr}
-  .proj-actions{display:none}
-  footer{flex-direction:column;gap:8px;text-align:center}
-}
-</style>
+    .h-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.9;
+      max-width: 420px;
+      margin-bottom: 2.5rem
+    }
+
+    .h-desc strong {
+      color: var(--text);
+      font-weight: 400
+    }
+
+    .h-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .btn-g {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      background: var(--green);
+      color: #04070d;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      border-radius: 2px;
+      cursor: none;
+      transition: opacity .2s, box-shadow .2s
+    }
+
+    .btn-g:hover {
+      opacity: .85;
+      box-shadow: 0 0 18px rgba(0, 255, 136, .35)
+    }
+
+    .btn-o {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      background: transparent;
+      color: var(--muted2);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 2px;
+      cursor: none;
+      transition: color .2s, border-color .2s
+    }
+
+    .btn-o:hover {
+      color: var(--text);
+      border-color: var(--muted2)
+    }
+
+    .h-coords {
+      position: absolute;
+      bottom: 2rem;
+      left: 3rem;
+      font-size: 10px;
+      color: var(--muted);
+      opacity: .4;
+      letter-spacing: .06em
+    }
+
+    /* PROJECT TERMINAL (hero right) */
+    .hero-right {
+      background: var(--bg1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
+    }
+
+    .pt-header {
+      display: flex;
+      align-items: center;
+      padding: 0 1.25rem;
+      height: 38px;
+      background: rgba(0, 0, 0, .4);
+      border-bottom: 1px solid var(--bdr);
+      gap: 6px;
+      flex-shrink: 0
+    }
+
+    .wdot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%
+    }
+
+    .wdot.r {
+      background: #ff5f57
+    }
+
+    .wdot.y {
+      background: #febc2e
+    }
+
+    .wdot.g {
+      background: #28c840
+    }
+
+    .pt-title {
+      margin-left: 8px;
+      font-size: 11px;
+      color: var(--muted2);
+      flex: 1;
+      text-align: center;
+      letter-spacing: .04em
+    }
+
+    /* Project selector tabs */
+    .proj-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--bdr);
+      overflow-x: auto;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, .25)
+    }
+
+    .proj-tabs::-webkit-scrollbar {
+      height: 2px
+    }
+
+    .ptab {
+      padding: 8px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      border-right: 1px solid var(--bdr);
+      cursor: none;
+      transition: color .2s, background .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0
+    }
+
+    .ptab:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .02)
+    }
+
+    .ptab.on {
+      color: var(--green);
+      background: var(--bg1);
+      border-bottom: 1px solid var(--bg1);
+      margin-bottom: -1px;
+      position: relative
+    }
+
+    .ptab-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .6
+    }
+
+    /* terminal body */
+    .pt-body {
+      flex: 1;
+      padding: 1.25rem 1.5rem;
+      overflow-y: auto;
+      font-size: 12px;
+      min-height: 0
+    }
+
+    .pt-body::-webkit-scrollbar {
+      width: 2px
+    }
+
+    .tl {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-bottom: 2px
+    }
+
+    .tp {
+      color: var(--green)
+    }
+
+    .thost {
+      color: var(--cyan)
+    }
+
+    .tpath {
+      color: var(--purple)
+    }
+
+    .tdollar {
+      color: var(--text)
+    }
+
+    .tcmd {
+      color: #fff
+    }
+
+    .tout {
+      margin: 3px 0 12px;
+      padding-left: 2px;
+      line-height: 1.6
+    }
+
+    .tg {
+      color: var(--green)
+    }
+
+    .tc {
+      color: var(--cyan)
+    }
+
+    .ty {
+      color: var(--yellow)
+    }
+
+    .tr {
+      color: var(--red)
+    }
+
+    .tw {
+      color: #fff
+    }
+
+    .tpu {
+      color: var(--purple)
+    }
+
+    .tdm {
+      color: var(--muted2)
+    }
+
+    .tblk {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background: var(--green);
+      vertical-align: -2px;
+      animation: blnk 1s step-end infinite;
+      box-shadow: 0 0 4px var(--green)
+    }
+
+    @keyframes blnk {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0
+      }
+    }
+
+    /* vim-style status bar */
+    .pt-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 1.25rem;
+      background: var(--green);
+      color: #04070d;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      flex-shrink: 0
+    }
+
+    /* MARQUEE */
+    /* .mstrip {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      background: var(--bg1);
+      padding: 9px 0;
+      overflow: hidden
+    } */
+
+    .mtrack {
+      display: flex;
+      width: max-content;
+      animation: mq 28s linear infinite
+    }
+
+    .mi {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 1.75rem;
+      font-size: 11px;
+      color: var(--muted2);
+      white-space: nowrap
+    }
+
+    .mi.hi {
+      color: var(--green)
+    }
+
+    .mi-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .5
+    }
+
+    @keyframes mq {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* ABOUT */
+    #about {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 2.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 5rem;
+      border-bottom: 1px solid var(--bdr);
+      max-width: 1180px;
+      margin: 0 auto
+    }
+
+    .sec-side {
+      position: sticky;
+      top: 70px;
+      align-self: start
+    }
+
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(255, 255, 255, .04);
+      letter-spacing: -3px;
+      margin-bottom: .5rem
+    }
+
+    .sec-label {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: .5rem
+    }
+
+    .sec-title {
+      font-family: var(--sans);
+      font-size: 26px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -.4px;
+      margin-bottom: 1rem
+    }
+
+    .sec-rule {
+      width: 20px;
+      height: 2px;
+      background: var(--green);
+      margin-bottom: 1.25rem
+    }
+
+    .sec-side p {
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.8
+    }
+
+    .a-bio {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.95;
+      margin-bottom: 2.25rem
+    }
+
+    .a-bio strong {
+      color: var(--green);
+      font-weight: 400
+    }
+
+    .a-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--bdr);
+      border: 1px solid var(--bdr);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 2.25rem
+    }
+
+    .a-stat {
+      background: var(--bg1);
+      padding: 1.1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background .2s
+    }
+
+    .a-stat:hover {
+      background: var(--bg2)
+    }
+
+    .a-stat::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease
+    }
+
+    .a-stat:hover::after {
+      transform: scaleX(1)
+    }
+
+    .a-sv {
+      font-family: var(--sans);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 3px
+    }
+
+    .a-sl {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    /* certs */
+    .certs-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .cert-row-title {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .6rem
+    }
+
+    .cert-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .cert-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg1);
+      border: 1px solid var(--bdr);
+      border-radius: 4px;
+      transition: border-color .2s, background .2s;
+      cursor: default
+    }
+
+    .cert-card:hover {
+      border-color: var(--bdr2);
+      background: var(--bg2)
+    }
+
+    .cert-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0
+    }
+
+    .cert-badge.aws {
+      background: rgba(255, 153, 0, .1);
+      border: 1px solid rgba(255, 153, 0, .2)
+    }
+
+    .cert-badge.k8s {
+      background: rgba(50, 100, 220, .12);
+      border: 1px solid rgba(50, 100, 220, .2)
+    }
+
+    .cert-badge.gcp {
+      background: rgba(0, 150, 255, .1);
+      border: 1px solid rgba(0, 150, 255, .2)
+    }
+
+    .cert-badge.az {
+      background: rgba(0, 120, 212, .1);
+      border: 1px solid rgba(0, 120, 212, .2)
+    }
+
+    .cert-info .cert-name {
+      font-size: 12px;
+      color: var(--text)
+    }
+
+    .cert-info .cert-org {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .04em
+    }
+
+    /* PROJECTS */
+    #projects {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 2.5rem;
+      max-width: 1180px;
+      margin: 0 auto
+    }
+
+    .sec-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.75rem
+    }
+
+    .sec-header-l .sec-label {
+      margin-bottom: 4px
+    }
+
+    .sec-header-title {
+      font-family: var(--sans);
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.6px
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--bdr);
+      border: 1px solid var(--bdr);
+      border-radius: 6px;
+      overflow: hidden
+    }
+
+    /* project card */
+    .pc {
+      background: var(--bg1);
+      display: flex;
+      flex-direction: column;
+      transition: background .25s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .pc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+      z-index: 1
+    }
+
+    .pc:hover {
+      background: var(--bg2)
+    }
+
+    .pc:hover::before {
+      transform: scaleX(1)
+    }
+
+    /* svg thumbnail */
+    .pc-thumb {
+      height: 140px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--bdr);
+      position: relative;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .pc-thumb svg {
+      width: 100%;
+      height: 100%
+    }
+
+    .pc-body {
+      padding: 1.4rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .pc-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px
+    }
+
+    .pc-name {
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -.2px
+    }
+
+    .pc-links {
+      display: flex;
+      gap: 6px
+    }
+
+    .pc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      font-size: 11px;
+      color: var(--muted2);
+      border: 1px solid var(--bdr);
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: none;
+      transition: color .2s, border-color .2s;
+      letter-spacing: .04em
+    }
+
+    .pc-link:hover {
+      color: var(--green);
+      border-color: rgba(0, 255, 136, .25)
+    }
+
+    .pc-desc {
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.75;
+      flex: 1
+    }
+
+    .pc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: .04em
+    }
+
+    .tag-g {
+      background: rgba(0, 255, 136, .06);
+      color: var(--green);
+      border: 1px solid rgba(0, 255, 136, .12)
+    }
+
+    .tag-c {
+      background: rgba(0, 212, 255, .06);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 212, 255, .12)
+    }
+
+    .tag-d {
+      background: rgba(255, 255, 255, .03);
+      color: var(--muted2);
+      border: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    /* SKILLS */
+    #skills {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 2.5rem;
+      background: var(--bg1);
+      border-top: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .skills-in {
+      max-width: 1180px;
+      margin: 0 auto
+    }
+
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem
+    }
+
+    .sk-cat {
+      background: var(--bg);
+      border: 1px solid var(--bdr);
+      border-radius: 6px;
+      overflow: hidden
+    }
+
+    .sk-cat-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 14px;
+      background: rgba(0, 0, 0, .3);
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .sk-cat-icon {
+      font-size: 15px
+    }
+
+    .sk-cat-name {
+      font-size: 11px;
+      color: var(--text);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      flex: 1
+    }
+
+    .sk-cat-n {
+      font-size: 10px;
+      color: var(--muted2)
+    }
+
+    .sk-cat-body {
+      padding: .9rem 1.1rem
+    }
+
+    .sk-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .025)
+    }
+
+    .sk-item:last-child {
+      border: none
+    }
+
+    .sk-ico {
+      font-size: 13px;
+      width: 18px;
+      text-align: center
+    }
+
+    .sk-lbl {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text)
+    }
+
+    .sk-bar {
+      width: 58px;
+      height: 2px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 1px;
+      overflow: hidden
+    }
+
+    .sk-fill {
+      height: 100%;
+      border-radius: 1px;
+      transition: width 1.2s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .sk-fill.g {
+      background: var(--green);
+      box-shadow: 0 0 4px var(--green)
+    }
+
+    .sk-fill.c {
+      background: var(--cyan);
+      box-shadow: 0 0 4px var(--cyan)
+    }
+
+    .sk-fill.p {
+      background: var(--purple);
+      box-shadow: 0 0 4px var(--purple)
+    }
+
+    .sk-pct {
+      font-size: 10px;
+      color: var(--muted2);
+      min-width: 26px;
+      text-align: right
+    }
+
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 1.75rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .tc-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      background: var(--bg);
+      border: 1px solid var(--bdr);
+      border-radius: 2px;
+      font-size: 11px;
+      color: var(--muted2);
+      transition: color .2s, border-color .2s
+    }
+
+    .tc-pill:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, .14)
+    }
+
+    /* INTERACTIVE TERMINAL */
+    #iterm-section {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 2.5rem;
+      max-width: 1180px;
+      margin: 0 auto
+    }
+
+    .iterm-wrap {
+      border: 1px solid var(--bdr);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 2.5rem
+    }
+
+    .iterm-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 16px;
+      background: #0b1020;
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .iterm-title {
+      margin-left: 8px;
+      font-size: 11px;
+      color: var(--muted2);
+      flex: 1;
+      text-align: center;
+      letter-spacing: .04em
+    }
+
+    .iterm-hints {
+      display: flex;
+      gap: 8px
+    }
+
+    .iterm-hint {
+      font-size: 10px;
+      color: var(--muted);
+      padding: 3px 8px;
+      border: 1px solid var(--bdr);
+      border-radius: 2px;
+      cursor: none;
+      transition: color .2s, border-color .2s;
+      letter-spacing: .04em
+    }
+
+    .iterm-hint:hover {
+      color: var(--green);
+      border-color: rgba(0, 255, 136, .2)
+    }
+
+    .iterm-output {
+      min-height: 320px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      font-size: 12px;
+      line-height: 1.65;
+      background: var(--bg1)
+    }
+
+    .iterm-output::-webkit-scrollbar {
+      width: 2px
+    }
+
+    .it-line {
+      margin-bottom: 1px
+    }
+
+    .it-prompt-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 8px
+    }
+
+    .it-pu {
+      color: var(--green)
+    }
+
+    .it-ph {
+      color: var(--cyan)
+    }
+
+    .it-pp {
+      color: var(--purple)
+    }
+
+    .it-ps {
+      color: var(--text)
+    }
+
+    .it-result {
+      margin-top: 4px;
+      padding-left: 2px
+    }
+
+    .it-result .tg {
+      color: var(--green)
+    }
+
+    .it-result .tc {
+      color: var(--cyan)
+    }
+
+    .it-result .ty {
+      color: var(--yellow)
+    }
+
+    .it-result .tr {
+      color: var(--red)
+    }
+
+    .it-result .tw {
+      color: #fff
+    }
+
+    .it-result .td {
+      color: var(--muted2)
+    }
+
+    .it-result .tp {
+      color: var(--purple)
+    }
+
+    .it-result .to {
+      color: var(--orange)
+    }
+
+    .iterm-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: .9rem 1.5rem;
+      background: rgba(0, 0, 0, .3);
+      border-top: 1px solid var(--bdr)
+    }
+
+    .inp-prompt {
+      color: var(--green);
+      font-size: 12px;
+      white-space: nowrap
+    }
+
+    #iterm-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 12px;
+      caret-color: var(--green)
+    }
+
+    .inp-cur {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background: var(--green);
+      animation: blnk 1s step-end infinite;
+      box-shadow: 0 0 4px var(--green)
+    }
+
+    /* CONTACT */
+    #contact {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 2.5rem;
+      max-width: 1180px;
+      margin: 0 auto
+    }
+
+    .con-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start
+    }
+
+    .con-left .con-pre {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: .6rem
+    }
+
+    .con-head {
+      font-family: var(--sans);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.8px;
+      color: #fff;
+      margin-bottom: 1rem
+    }
+
+    .con-head span {
+      color: var(--green)
+    }
+
+    .con-body {
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.9;
+      margin-bottom: 2rem
+    }
+
+    .con-links {
+      display: flex;
+      flex-direction: column;
+      gap: 9px
+    }
+
+    .clink {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      background: var(--bg1);
+      border: 1px solid var(--bdr);
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: none;
+      transition: border-color .2s, background .2s
+    }
+
+    .clink:hover {
+      border-color: var(--bdr2);
+      background: var(--bg2)
+    }
+
+    .clink-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gdim);
+      border: 1px solid rgba(0, 255, 136, .1);
+      border-radius: 3px;
+      font-size: 15px;
+      flex-shrink: 0
+    }
+
+    .clink-text {
+      flex: 1
+    }
+
+    .clink-lbl {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 1px
+    }
+
+    .clink-val {
+      font-size: 12px;
+      color: var(--text)
+    }
+
+    .clink-arr {
+      color: var(--muted);
+      font-size: 14px;
+      transition: color .2s, transform .2s
+    }
+
+    .clink:hover .clink-arr {
+      color: var(--green);
+      transform: translate(2px, -2px)
+    }
+
+    .con-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .cf-row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px
+    }
+
+    .cf-lbl {
+      font-size: 10px;
+      color: var(--muted2);
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    .cf-in,
+    .cf-ta {
+      background: var(--bg1);
+      border: 1px solid var(--bdr);
+      border-radius: 3px;
+      padding: 9px 13px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 12px;
+      outline: none;
+      resize: none;
+      transition: border-color .2s, box-shadow .2s
+    }
+
+    .cf-in:focus,
+    .cf-ta:focus {
+      border-color: rgba(0, 255, 136, .25);
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, .04)
+    }
+
+    .cf-ta {
+      height: 115px
+    }
+
+    .cf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      border: 1px solid rgba(0, 255, 136, .25);
+      cursor: none;
+      border-radius: 3px;
+      align-self: flex-start;
+      transition: background .2s, box-shadow .2s
+    }
+
+    .cf-btn:hover {
+      background: rgba(0, 255, 136, .06);
+      box-shadow: 0 0 14px rgba(0, 255, 136, .12)
+    }
+
+    .cf-btn::before {
+      content: '$ ';
+      color: var(--muted2)
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--bdr);
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .f-left {
+      font-size: 11px;
+      color: var(--muted2)
+    }
+
+    .f-left span {
+      color: var(--green)
+    }
+
+    .f-right {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .f-link {
+      font-size: 11px;
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    .f-link:hover {
+      color: var(--green)
+    }
+
+    /* REVEAL */
+    .rev {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .rev.up {
+      opacity: 1;
+      transform: none
+    }
+
+    .rev.d1 {
+      transition-delay: .1s
+    }
+
+    .rev.d2 {
+      transition-delay: .2s
+    }
+
+    .rev.d3 {
+      transition-delay: .3s
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto
+      }
+
+      .hero-right {
+        min-height: 380px
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 2.5rem
+      }
+
+      .sec-side {
+        position: static
+      }
+
+      .a-stats {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .proj-grid {
+        grid-template-columns: 1fr
+      }
+
+      .sk-grid {
+        grid-template-columns: 1fr
+      }
+
+      .con-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem
+      }
+
+      nav {
+        padding: 0 1.25rem
+      }
+
+      .hero-left {
+        padding: 4rem 1.5rem 3rem
+      }
+
+      #about,
+      #projects,
+      #contact,
+      #iterm-section,
+      #skills {
+        padding: 4rem 1.5rem
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center
+      }
+    }
+  </style>
 </head>
+
 <body>
-
-<!-- CUSTOM CURSOR -->
-<div id="cursor">
-  <div id="cursor-ring"></div>
-  <div id="cursor-dot"></div>
-</div>
-
-<!-- OVERLAYS -->
-<div id="noise"></div>
-<div id="grid"></div>
-
-<!-- ══════════════ BOOT SCREEN ══════════════ -->
-<div id="boot">
-  <div id="boot-lines"></div>
-  <div id="boot-bar-wrap"><div id="boot-bar"></div></div>
-</div>
-
-<!-- ══════════════ NAV ══════════════ -->
-<nav id="nav">
-  <a class="nav-id" href="#hero">manthan.soni</a>
-  <ul class="nav-links">
-    <li><a href="#about">about</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#contact">contact</a></li>
-  </ul>
-  <div class="nav-uptime">
-    <div class="uptime-dot"></div>
-    uptime: <span id="uptime-counter">00:00:00</span>
+  <!-- CURSOR -->
+  <div id="cur">
+    <div id="cur-ring"></div>
+    <div id="cur-dot"></div>
   </div>
-</nav>
+  <div id="noise"></div>
+  <div id="gridoverlay"></div>
 
-<!-- ══════════════ HERO ══════════════ -->
-<section id="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <span>DevOps</span><span class="eyebrow-slash">/</span>
-      <span>Cloud</span><span class="eyebrow-slash">/</span>
-      <span>Infrastructure</span>
+  <!-- BOOT -->
+  <div id="boot">
+    <div id="bootlines"></div>
+    <div id="bbar">
+      <div id="bfill"></div>
     </div>
-    <h1 class="hero-name">
-      Manthan<br/>
-      <span class="line-dim">Soni</span>
-    </h1>
-    <div class="hero-role-line">
-      <span>Engineer</span>
-      <span class="role-sep">·</span>
-      <span>Automator</span>
-      <span class="role-sep">·</span>
-      <span>Deployer</span>
-    </div>
-    <p class="hero-desc">
-      I build the <strong>infrastructure that ships your product</strong> — Kubernetes clusters, CI/CD pipelines, cloud architecture, and the automation that makes it all invisible. <strong>Zero downtime. Zero compromise.</strong>
-    </p>
-    <div class="cta-row">
-      <a href="#projects" class="cta-primary">$ ls ./projects</a>
-      <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="cta-secondary">GitHub ↗</a>
-      <a href="https://www.linkedin.com/in/manthan-soni-595641243/" target="_blank" rel="noopener" class="cta-secondary">LinkedIn ↗</a>
-    </div>
-    <div class="hero-coords">21.1702° N, 72.8311° E // India</div>
   </div>
 
-  <div class="hero-right">
-    <div class="terminal-tabs">
-      <div class="t-tab active">bash</div>
-      <div class="t-tab">k8s-prod</div>
-      <div class="t-tab">terraform</div>
-      <div class="t-tab">logs</div>
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#hero">manthan<span>.soni</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#iterm-section">terminal</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <div class="nav-live">
+      <div class="live-dot"></div>
+      uptime&nbsp;<span id="upt">00:00:00</span>
     </div>
-    <div class="terminal-content" id="terminal-output"></div>
-    <div class="terminal-status">
-      <div class="status-left">
-        <span>NORMAL</span>
-        <span class="status-sep">|</span>
-        <span>main</span>
-        <span class="status-sep">|</span>
-        <span>k8s: prod-cluster</span>
-      </div>
-      <div class="status-right">
-        <span id="term-time">00:00:00</span>
-        <span class="status-sep">|</span>
-        <span>UTF-8</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<!-- ══════════════ MARQUEE ══════════════ -->
-<div class="marquee-strip">
-  <div class="marquee-track" id="marquee-track"></div>
-</div>
-
-<!-- ══════════════ ABOUT ══════════════ -->
-<section id="about">
-  <div class="about-sidebar reveal">
-    <div class="section-label">section</div>
-    <div class="section-num">01</div>
-    <div class="section-title-big">About<br/>Me</div>
-    <div class="sidebar-line"></div>
-    <p>Based in India. Open to remote roles globally and on-site opportunities.</p>
-  </div>
-  <div class="about-main reveal reveal-delay-1">
-    <p class="about-bio">
-      I'm a <strong>DevOps and Cloud Engineer</strong> who lives in the terminal. I design and operate the systems that keep products online, fast, and scalable — from multi-region Kubernetes deployments to zero-touch CI/CD pipelines that ship code while you sleep.
-      <br/><br/>
-      My philosophy: <strong>infrastructure should be code, automation should be ruthless</strong>, and an on-call rotation should be boring. I've spent years turning chaos into repeatable systems using Terraform, Helm, GitHub Actions, and whatever cloud platform the job demands.
-    </p>
-    <div class="stat-row">
-      <div class="stat-box">
-        <div class="stat-val">3+</div>
-        <div class="stat-lbl">Years Exp.</div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="h-pre">DevOps / Cloud / Infrastructure</div>
+      <h1 class="h-name">Manthan<br /><span class="ghost">Soni</span></h1>
+      <div class="h-tagline"><span>Engineer</span><span class="sep">·</span><span>Automator</span><span
+          class="sep">·</span><span>SRE</span></div>
+      <p class="h-desc">I build the <strong>infra that ships your product</strong> — Kubernetes clusters, GitOps
+        pipelines, IaC, and the automation that makes 3AM pages a thing of the past.</p>
+      <div class="h-btns">
+        <a href="#projects" class="btn-g">$ ls ./projects</a>
+        <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="btn-o">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/manthan-soni-595641243/" target="_blank" rel="noopener"
+          class="btn-o">LinkedIn ↗</a>
       </div>
-      <div class="stat-box">
-        <div class="stat-val">99.9%</div>
-        <div class="stat-lbl">Uptime SLA</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val">∞</div>
-        <div class="stat-lbl">Pipelines Built</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val">0</div>
-        <div class="stat-lbl">Manual Deploys</div>
-      </div>
-    </div>
-    <div class="cert-row">
-      <div class="cert-chip"><span class="cert-chip-icon">🏅</span>Add your cert (e.g. AWS SAA)</div>
-      <div class="cert-chip"><span class="cert-chip-icon">🏅</span>Add your cert (e.g. CKA)</div>
-      <div class="cert-chip"><span class="cert-chip-icon">🏅</span>Add your cert</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════ PROJECTS ══════════════ -->
-<section id="projects">
-  <div class="projects-header reveal">
-    <div class="projects-header-left">
-      <div class="section-label">section // 02</div>
-      <div class="projects-title">Projects</div>
-    </div>
-    <div class="projects-count">Showing <span>4</span> of N repos</div>
-  </div>
-
-  <div class="proj-list reveal reveal-delay-1">
-
-    <div class="proj-row">
-      <div class="proj-index">01</div>
-      <div class="proj-body">
-        <div class="proj-top-row">
-          <div class="proj-name">Replace with your project name</div>
-          <span class="proj-featured">featured</span>
-        </div>
-        <div class="proj-desc">
-          Add your project description. Explain what it does, the problem it solves, and what kind of scale or impact it had. DevOps projects shine when you mention numbers — e.g. "reduced deploy time by 70%" or "handles 10k req/s".
-        </div>
-        <div class="proj-tech">
-          <span class="tech-pill hi">Kubernetes</span>
-          <span class="tech-pill hi">Terraform</span>
-          <span class="tech-pill">AWS EKS</span>
-          <span class="tech-pill">Helm</span>
-          <span class="tech-pill">ArgoCD</span>
-        </div>
-      </div>
-      <div class="proj-actions">
-        <a href="https://github.com/Mdskun" class="proj-btn" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="#" class="proj-btn">README ↗</a>
-      </div>
+      <!-- <div class="h-coords">21.1702°N 72.8311°E // Ahmedabad, India</div> -->
     </div>
 
-    <div class="proj-row">
-      <div class="proj-index">02</div>
-      <div class="proj-body">
-        <div class="proj-top-row">
-          <div class="proj-name">Replace with your project name</div>
-        </div>
-        <div class="proj-desc">
-          Describe your CI/CD pipeline project. What did it automate? How many stages? What was the before vs after? E.g. "Full GitOps pipeline — lint, test, build Docker image, push to ECR, deploy to EKS via Helm."
-        </div>
-        <div class="proj-tech">
-          <span class="tech-pill hi">GitHub Actions</span>
-          <span class="tech-pill hi">Docker</span>
-          <span class="tech-pill">ECR</span>
-          <span class="tech-pill">Helm</span>
-          <span class="tech-pill">Slack Alerts</span>
-        </div>
+    <!-- PROJECT-LINKED TERMINAL -->
+    <div class="hero-right">
+      <div class="pt-header">
+        <div class="wdot r"></div>
+        <div class="wdot y"></div>
+        <div class="wdot g"></div>
+        <span class="pt-title" id="pt-title">bash — manthan@devops</span>
       </div>
-      <div class="proj-actions">
-        <a href="https://github.com/Mdskun" class="proj-btn" target="_blank" rel="noopener">GitHub ↗</a>
+      <div class="proj-tabs" id="proj-tabs">
+        <div class="ptab on clickable" data-proj="0"><span class="ptab-dot"></span>docker-app</div>
+        <div class="ptab clickable" data-proj="1"><span class="ptab-dot"></span>k8s-cluster</div>
+        <div class="ptab clickable" data-proj="2"><span class="ptab-dot"></span>tf-aws-infra</div>
+        <div class="ptab clickable" data-proj="3"><span class="ptab-dot"></span>ansible-setup</div>
+        <div class="ptab clickable" data-proj="4"><span class="ptab-dot"></span>ci-cd-pipeline</div>
       </div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-index">03</div>
-      <div class="proj-body">
-        <div class="proj-top-row">
-          <div class="proj-name">Replace with your project name</div>
-        </div>
-        <div class="proj-desc">
-          Describe your IaC project. E.g. "Modular Terraform repo provisioning VPC, EKS, RDS, and IAM roles across 3 environments (dev/staging/prod) with remote state in S3 + DynamoDB locking."
-        </div>
-        <div class="proj-tech">
-          <span class="tech-pill hi">Terraform</span>
-          <span class="tech-pill">AWS</span>
-          <span class="tech-pill">S3 Backend</span>
-          <span class="tech-pill">Ansible</span>
-        </div>
-      </div>
-      <div class="proj-actions">
-        <a href="https://github.com/Mdskun" class="proj-btn" target="_blank" rel="noopener">GitHub ↗</a>
+      <div class="pt-body" id="pt-body"></div>
+      <div class="pt-status">
+        <div>NORMAL | main | <span id="pt-branch">docker-app</span></div>
+        <div id="pt-clock">00:00:00</div>
       </div>
     </div>
+  </section>
 
-    <div class="proj-row">
-      <div class="proj-index">04</div>
-      <div class="proj-body">
-        <div class="proj-top-row">
-          <div class="proj-name">Replace with your project name</div>
-        </div>
-        <div class="proj-desc">
-          Describe your observability / monitoring project. E.g. "Full-stack observability using Prometheus, Grafana, and Loki. Custom dashboards tracking p99 latency, pod saturation, and error rates. PagerDuty alerts on SLO breach."
-        </div>
-        <div class="proj-tech">
-          <span class="tech-pill hi">Prometheus</span>
-          <span class="tech-pill hi">Grafana</span>
-          <span class="tech-pill">Loki</span>
-          <span class="tech-pill">Alertmanager</span>
-        </div>
-      </div>
-      <div class="proj-actions">
-        <a href="https://github.com/Mdskun" class="proj-btn" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
+  <!-- MARQUEE -->
+  <!-- <div class="mstrip">
+    <div class="mtrack" id="mtrack"></div>
+  </div> -->
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-side rev">
+      <div class="sec-num">01</div>
+      <div class="sec-label">section</div>
+      <div class="sec-title">About<br />Me</div>
+      <div class="sec-rule"></div>
+      <p>Based in Ahmedabad, India.<br />Open to remote roles globally.</p>
     </div>
-
-  </div>
-</section>
-
-<!-- ══════════════ SKILLS ══════════════ -->
-<section id="skills">
-  <div class="skills-inner">
-    <div class="skills-top reveal">
-      <div>
-        <div class="section-label">section // 03</div>
-        <div class="skills-title">Stack</div>
-      </div>
-    </div>
-
-    <div class="skills-grid" id="skills-grid">
-
-      <div class="skill-category reveal">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">☁️</span>
-          <span class="skill-cat-name">Cloud Platforms</span>
-          <span class="skill-cat-count">5 skills</span>
-        </div>
-        <div class="skill-cat-body">
-          <div class="skill-item"><span class="skill-icon-sm">🔶</span><span class="skill-label">AWS</span><div class="skill-lvl-bar"><div class="skill-lvl-fill" data-w="90"></div></div><span class="skill-pct">90%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🔵</span><span class="skill-label">GCP</span><div class="skill-lvl-bar"><div class="skill-lvl-fill" data-w="72"></div></div><span class="skill-pct">72%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🟦</span><span class="skill-label">Azure</span><div class="skill-lvl-bar"><div class="skill-lvl-fill" data-w="60"></div></div><span class="skill-pct">60%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🌐</span><span class="skill-label">Cloudflare</span><div class="skill-lvl-bar"><div class="skill-lvl-fill" data-w="75"></div></div><span class="skill-pct">75%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">📦</span><span class="skill-label">DigitalOcean</span><div class="skill-lvl-bar"><div class="skill-lvl-fill" data-w="65"></div></div><span class="skill-pct">65%</span></div>
-        </div>
-      </div>
-
-      <div class="skill-category reveal reveal-delay-1">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">🐳</span>
-          <span class="skill-cat-name">Containers & Orchestration</span>
-          <span class="skill-cat-count">5 skills</span>
-        </div>
-        <div class="skill-cat-body">
-          <div class="skill-item"><span class="skill-icon-sm">⚙️</span><span class="skill-label">Kubernetes</span><div class="skill-lvl-bar"><div class="skill-lvl-fill cyan" data-w="88"></div></div><span class="skill-pct">88%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🐳</span><span class="skill-label">Docker</span><div class="skill-lvl-bar"><div class="skill-lvl-fill cyan" data-w="95"></div></div><span class="skill-pct">95%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">⛵</span><span class="skill-label">Helm</span><div class="skill-lvl-bar"><div class="skill-lvl-fill cyan" data-w="82"></div></div><span class="skill-pct">82%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🔄</span><span class="skill-label">ArgoCD</span><div class="skill-lvl-bar"><div class="skill-lvl-fill cyan" data-w="76"></div></div><span class="skill-pct">76%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🕸️</span><span class="skill-label">Istio</span><div class="skill-lvl-bar"><div class="skill-lvl-fill cyan" data-w="62"></div></div><span class="skill-pct">62%</span></div>
-        </div>
-      </div>
-
-      <div class="skill-category reveal reveal-delay-2">
-        <div class="skill-cat-header">
-          <span class="skill-cat-icon">🔧</span>
-          <span class="skill-cat-name">IaC & Automation</span>
-          <span class="skill-cat-count">5 skills</span>
-        </div>
-        <div class="skill-cat-body">
-          <div class="skill-item"><span class="skill-icon-sm">🏗️</span><span class="skill-label">Terraform</span><div class="skill-lvl-bar"><div class="skill-lvl-fill purple" data-w="90"></div></div><span class="skill-pct">90%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">📜</span><span class="skill-label">Ansible</span><div class="skill-lvl-bar"><div class="skill-lvl-fill purple" data-w="80"></div></div><span class="skill-pct">80%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🐍</span><span class="skill-label">Python</span><div class="skill-lvl-bar"><div class="skill-lvl-fill purple" data-w="75"></div></div><span class="skill-pct">75%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">🔩</span><span class="skill-label">Bash / Shell</span><div class="skill-lvl-bar"><div class="skill-lvl-fill purple" data-w="92"></div></div><span class="skill-pct">92%</span></div>
-          <div class="skill-item"><span class="skill-icon-sm">⚡</span><span class="skill-label">GitHub Actions</span><div class="skill-lvl-bar"><div class="skill-lvl-fill purple" data-w="88"></div></div><span class="skill-pct">88%</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="tools-row reveal">
-      <div class="tool-chip">🐧 Linux</div>
-      <div class="tool-chip">📊 Grafana</div>
-      <div class="tool-chip">📈 Prometheus</div>
-      <div class="tool-chip">📋 Loki</div>
-      <div class="tool-chip">🔔 PagerDuty</div>
-      <div class="tool-chip">🐘 PostgreSQL</div>
-      <div class="tool-chip">🔴 Redis</div>
-      <div class="tool-chip">📨 Kafka</div>
-      <div class="tool-chip">🔐 Vault</div>
-      <div class="tool-chip">🌊 Nginx</div>
-      <div class="tool-chip">🔗 Jenkins</div>
-      <div class="tool-chip">📦 Harbor</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════ CONTACT ══════════════ -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div class="contact-left reveal">
-      <div class="contact-pre">section // 04</div>
-      <div class="contact-heading">Let's build<br/><span>reliable</span> things.</div>
-      <p class="contact-body">
-        Open to full-time DevOps roles, SRE positions, and contract infrastructure work. If you're scaling a platform, taming cloud costs, or building a deployment pipeline from scratch — let's talk.
+    <div class="rev d1">
+      <p class="a-bio">
+        I'm a <strong>DevOps & Cloud Engineer</strong> who treats infrastructure as code and automation as a superpower.
+        I design systems that deploy themselves, heal themselves, and scale themselves — so teams can ship without
+        fear.<br /><br />
+        From <strong>multi-region Kubernetes clusters</strong> to zero-touch CI/CD pipelines and cost-optimised cloud
+        architectures, I've built it all with one goal: make the platform invisible, and the product unstoppable.
       </p>
-      <div class="contact-list">
-        <a href="mailto:your@email.com" class="c-item">
-          <div class="c-item-icon">✉</div>
-          <div class="c-item-text">
-            <div class="c-item-label">Email</div>
-            <div class="c-item-val">your@email.com</div>
+      <div class="a-stats">
+        <div class="a-stat">
+          <div class="a-sv">3+</div>
+          <div class="a-sl">Yrs Exp</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sv">99.9%</div>
+          <div class="a-sl">SLA Target</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sv">0</div>
+          <div class="a-sl">Manual Deploys</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sv">∞</div>
+          <div class="a-sl">Pipelines</div>
+        </div>
+      </div>
+      <!-- CERTIFICATES -->
+      <!-- <div class="certs-wrap">
+        <div class="cert-cards">
+          <div class="cert-card">
+            <div class="cert-badge aws">🟠</div>
+            <div class="cert-info">
+              <div class="cert-name">AWS Solutions Architect</div>
+              <div class="cert-org">Amazon Web Services · cc095bb6234a41269778174ce1ba183a</div>
+            </div>
+          </div> -->
+          <!-- <div class="cert-card">
+          <div class="cert-badge k8s">⎈</div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Kubernetes Admin</div>
+            <div class="cert-org">CNCF · Add your cert ID</div>
           </div>
-          <div class="c-item-arrow">↗</div>
-        </a>
-        <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="c-item">
-          <div class="c-item-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
+        </div> -->
+          <!-- <div class="cert-card">
+            <div class="cert-badge gcp">🔵</div>
+            <div class="cert-info">
+              <div class="cert-name">GCP Associate CE</div>
+              <div class="cert-org">Google Cloud · Add your cert ID</div>
+            </div>
           </div>
-          <div class="c-item-text">
-            <div class="c-item-label">GitHub</div>
-            <div class="c-item-val">github.com/Mdskun</div>
+          <div class="cert-card">
+            <div class="cert-badge az">🟦</div>
+            <div class="cert-info">
+              <div class="cert-name">Azure Fundamentals</div>
+              <div class="cert-org">Microsoft · Add your cert ID</div>
+            </div>
           </div>
-          <div class="c-item-arrow">↗</div>
-        </a>
-        <a href="https://www.linkedin.com/in/manthan-soni-595641243/" target="_blank" rel="noopener" class="c-item">
-          <div class="c-item-icon" style="color:#0a66c2;font-weight:700;font-size:14px;">in</div>
-          <div class="c-item-text">
-            <div class="c-item-label">LinkedIn</div>
-            <div class="c-item-val">Manthan Soni</div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-header rev">
+      <div class="sec-header-l">
+        <div class="sec-label">section // 02</div>
+        <div class="sec-header-title">Projects(curruntly updating)</div>
+      </div>
+      <a href="https://github.com/Mdskun?tab=repositories" target="_blank" rel="noopener" class="btn-o"
+        style="font-size:11px;padding:7px 14px">All Repos ↗</a>
+    </div>
+    <div class="proj-grid rev d1" id="proj-grid">
+
+      <!-- PROJECT 1: Docker -->
+      <div class="pc">
+        <div class="pc-thumb">
+          <svg viewBox="0 0 480 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="140" fill="#04070d" />
+            <text x="16" y="24" font-family="monospace" font-size="10" fill="#3e5260">$ docker ps --format "table
+              {{.Names}}\t{{.Status}}\t{{.Ports}}"</text>
+            <text x="16" y="44" font-family="monospace" font-size="9.5"
+              fill="#c0d4e4">NAMES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTS</text>
+            <text x="16" y="60" font-family="monospace" font-size="9.5"
+              fill="#00ff88">web-app&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3
+              hours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:3000→3000/tcp</text>
+            <text x="16" y="74" font-family="monospace" font-size="9.5"
+              fill="#00ff88">nginx-proxy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3
+              hours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:80→80, 443→443</text>
+            <text x="16" y="88" font-family="monospace" font-size="9.5"
+              fill="#00ff88">redis-cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3
+              hours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6379/tcp</text>
+            <text x="16" y="102" font-family="monospace" font-size="9.5"
+              fill="#00ff88">postgres-db&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3
+              hours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5432/tcp</text>
+            <text x="16" y="118" font-family="monospace" font-size="9.5"
+              fill="#ffd700">prometheus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3
+              hours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:9090→9090/tcp</text>
+            <rect x="400" y="8" width="68" height="18" rx="2" fill="rgba(0,255,136,0.08)" stroke="rgba(0,255,136,0.2)"
+              stroke-width=".5" />
+            <text x="434" y="21" font-family="monospace" font-size="9" fill="#00ff88" text-anchor="middle">5
+              running</text>
+          </svg>
+        </div>
+        <div class="pc-body">
+          <div class="pc-top">
+            <div class="pc-name">Docker Microservices</div>
+            <div class="pc-links">
+              <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="pc-link">GitHub ↗</a>
+            </div>
           </div>
-          <div class="c-item-arrow">↗</div>
-        </a>
+          <div class="pc-desc">Multi-container application stack with Nginx reverse proxy, Redis caching, and Prometheus
+            monitoring. Fully containerised with Docker Compose for local dev and production parity.</div>
+          <div class="pc-tags">
+            <span class="tag tag-g">Docker</span>
+            <span class="tag tag-c">Compose</span>
+            <span class="tag tag-d">Nginx</span>
+            <span class="tag tag-d">Redis</span>
+            <span class="tag tag-d">Prometheus</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: Kubernetes -->
+      <div class="pc">
+        <div class="pc-thumb">
+          <svg viewBox="0 0 480 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="140" fill="#04070d" />
+            <text x="16" y="24" font-family="monospace" font-size="10" fill="#3e5260">$ kubectl get pods -n production
+              -o wide</text>
+            <text x="16" y="40" font-family="monospace" font-size="9"
+              fill="#c0d4e4">NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READY&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;RESTARTS&nbsp;NODE</text>
+            <text x="16" y="54" font-family="monospace" font-size="9"
+              fill="#00ff88">api-deploy-7d9b-xk2p&nbsp;2/2&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-1</text>
+            <text x="16" y="68" font-family="monospace" font-size="9"
+              fill="#00ff88">api-deploy-7d9b-m8ql&nbsp;2/2&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-2</text>
+            <text x="16" y="82" font-family="monospace" font-size="9"
+              fill="#00ff88">web-deploy-4c3a-pqrs&nbsp;1/1&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-3</text>
+            <text x="16" y="96" font-family="monospace" font-size="9"
+              fill="#00ff88">web-deploy-4c3a-jk7f&nbsp;1/1&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-1</text>
+            <text x="16" y="110" font-family="monospace" font-size="9"
+              fill="#00d4ff">worker-job-v2-hxyz&nbsp;&nbsp;&nbsp;1/1&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node-2</text>
+            <text x="16" y="126" font-family="monospace" font-size="9" fill="#3e5260">5 pods running across 3 nodes —
+              prod-cluster v1.28.3</text>
+          </svg>
+        </div>
+        <div class="pc-body">
+          <div class="pc-top">
+            <div class="pc-name">K8s Production Cluster</div>
+            <div class="pc-links">
+              <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="pc-link">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="pc-desc">Production-grade Kubernetes cluster on AWS EKS with Helm chart deployments, HPA
+            autoscaling, RBAC policies, and ArgoCD GitOps. Manages 3 microservices across 3 nodes.</div>
+          <div class="pc-tags">
+            <span class="tag tag-g">Kubernetes</span>
+            <span class="tag tag-c">AWS EKS</span>
+            <span class="tag tag-d">Helm</span>
+            <span class="tag tag-d">ArgoCD</span>
+            <span class="tag tag-d">HPA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: Terraform -->
+      <div class="pc">
+        <div class="pc-thumb">
+          <svg viewBox="0 0 480 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="140" fill="#04070d" />
+            <text x="16" y="24" font-family="monospace" font-size="10" fill="#3e5260">$ terraform apply
+              -auto-approve</text>
+            <text x="16" y="40" font-family="monospace" font-size="9.5" fill="#00d4ff">aws_vpc.main: Creating...</text>
+            <text x="16" y="54" font-family="monospace" font-size="9.5" fill="#00d4ff">aws_subnet.public[0]:
+              Creating...</text>
+            <text x="16" y="68" font-family="monospace" font-size="9.5" fill="#00d4ff">aws_eks_cluster.prod: Creating...
+              [30s elapsed]</text>
+            <text x="16" y="82" font-family="monospace" font-size="9.5" fill="#00ff88">aws_vpc.main: Creation complete
+              [id=vpc-0a1b2c]</text>
+            <text x="16" y="96" font-family="monospace" font-size="9.5" fill="#00ff88">aws_eks_cluster.prod: Creation
+              complete [id=prod]</text>
+            <text x="16" y="112" font-family="monospace" font-size="9.5" fill="#ffd700">Apply complete! Resources: 14
+              added, 0 changed, 0 destroyed.</text>
+            <text x="16" y="126" font-family="monospace" font-size="9.5" fill="#3e5260">Outputs: cluster_endpoint =
+              "https://ABCD.gr7.us-east-1.eks.amazonaws.com"</text>
+          </svg>
+        </div>
+        <div class="pc-body">
+          <div class="pc-top">
+            <div class="pc-name">Terraform AWS Infrastructure</div>
+            <div class="pc-links">
+              <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="pc-link">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="pc-desc">Modular Terraform repo provisioning VPC, EKS, RDS, IAM, and S3 across dev/staging/prod
+            environments. Remote state in S3 with DynamoDB locking. 14 resources fully automated.</div>
+          <div class="pc-tags">
+            <span class="tag tag-g">Terraform</span>
+            <span class="tag tag-c">AWS</span>
+            <span class="tag tag-d">VPC</span>
+            <span class="tag tag-d">EKS</span>
+            <span class="tag tag-d">S3 Backend</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: Ansible -->
+      <div class="pc">
+        <div class="pc-thumb">
+          <svg viewBox="0 0 480 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="140" fill="#04070d" />
+            <text x="16" y="24" font-family="monospace" font-size="10" fill="#3e5260">$ ansible-playbook -i
+              inventory/prod site.yml</text>
+            <text x="16" y="40" font-family="monospace" font-size="9.5" fill="#c0d4e4">PLAY [Configure web servers]
+              *****</text>
+            <text x="16" y="54" font-family="monospace" font-size="9.5" fill="#00ff88">ok: [web-01] =&gt; Install
+              nginx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[changed]</text>
+            <text x="16" y="68" font-family="monospace" font-size="9.5" fill="#00ff88">ok: [web-02] =&gt; Install
+              nginx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[changed]</text>
+            <text x="16" y="82" font-family="monospace" font-size="9.5" fill="#00ff88">ok: [db-01]&nbsp;&nbsp;=&gt;
+              Configure postgres&nbsp;&nbsp;[changed]</text>
+            <text x="16" y="96" font-family="monospace" font-size="9.5" fill="#00d4ff">ok:
+              [all]&nbsp;&nbsp;&nbsp;&nbsp;=&gt; Copy SSL certs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ok]</text>
+            <text x="16" y="112" font-family="monospace" font-size="9.5" fill="#ffd700">PLAY RECAP: ok=12, changed=8,
+              failed=0, skipped=1</text>
+            <text x="16" y="126" font-family="monospace" font-size="9.5" fill="#00ff88">3 hosts configured in
+              28.4s</text>
+          </svg>
+        </div>
+        <div class="pc-body">
+          <div class="pc-top">
+            <div class="pc-name">Ansible Config Management</div>
+            <div class="pc-links">
+              <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="pc-link">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="pc-desc">Ansible playbooks for automated server provisioning — Nginx, PostgreSQL, SSL certs,
+            firewall rules, and app deployment across web and database hosts. Idempotent and repeatable.</div>
+          <div class="pc-tags">
+            <span class="tag tag-g">Ansible</span>
+            <span class="tag tag-c">Linux</span>
+            <span class="tag tag-d">Nginx</span>
+            <span class="tag tag-d">PostgreSQL</span>
+            <span class="tag tag-d">SSL/TLS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="skills-in">
+      <div class="sec-header rev">
+        <div class="sec-header-l">
+          <div class="sec-label">section // 03</div>
+          <div class="sec-header-title">Stack</div>
+        </div>
+      </div>
+      <div class="sk-grid" id="sk-grid">
+        <div class="sk-cat rev">
+          <div class="sk-cat-head"><span class="sk-cat-icon">☁️</span><span class="sk-cat-name">Cloud
+              Platforms</span><span class="sk-cat-n">5</span></div>
+          <div class="sk-cat-body">
+            <div class="sk-item"><span class="sk-ico">🔶</span><span class="sk-lbl">AWS</span>
+              <div class="sk-bar">
+                <div class="sk-fill g" data-w="90"></div>
+              </div><span class="sk-pct">90%</span>
+            </div>
+            <!-- <div class="sk-item"><span class="sk-ico">🔵</span><span class="sk-lbl">GCP</span><div class="sk-bar"><div class="sk-fill g" data-w="72"></div></div><span class="sk-pct">72%</span></div>
+          <div class="sk-item"><span class="sk-ico">🟦</span><span class="sk-lbl">Azure</span><div class="sk-bar"><div class="sk-fill g" data-w="60"></div></div><span class="sk-pct">60%</span></div>
+          <div class="sk-item"><span class="sk-ico">🌐</span><span class="sk-lbl">Cloudflare</span><div class="sk-bar"><div class="sk-fill g" data-w="78"></div></div><span class="sk-pct">78%</span></div>
+          <div class="sk-item"><span class="sk-ico">🌊</span><span class="sk-lbl">DigitalOcean</span><div class="sk-bar"><div class="sk-fill g" data-w="65"></div></div><span class="sk-pct">65%</span></div> -->
+          </div>
+        </div>
+        <div class="sk-cat rev d1">
+          <div class="sk-cat-head"><span class="sk-cat-icon">🐳</span><span class="sk-cat-name">Containers &
+              K8s</span><span class="sk-cat-n">5</span></div>
+          <div class="sk-cat-body">
+            <div class="sk-item"><span class="sk-ico">⚙️</span><span class="sk-lbl">Kubernetes</span>
+              <div class="sk-bar">
+                <div class="sk-fill c" data-w="88"></div>
+              </div><span class="sk-pct">88%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">🐳</span><span class="sk-lbl">Docker</span>
+              <div class="sk-bar">
+                <div class="sk-fill c" data-w="95"></div>
+              </div><span class="sk-pct">95%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">⛵</span><span class="sk-lbl">Helm</span>
+              <div class="sk-bar">
+                <div class="sk-fill c" data-w="83"></div>
+              </div><span class="sk-pct">83%</span>
+            </div>
+            <!-- <div class="sk-item"><span class="sk-ico">🔄</span><span class="sk-lbl">ArgoCD</span><div class="sk-bar"><div class="sk-fill c" data-w="76"></div></div><span class="sk-pct">76%</span></div>
+          <div class="sk-item"><span class="sk-ico">🕸️</span><span class="sk-lbl">Istio</span><div class="sk-bar"><div class="sk-fill c" data-w="62"></div></div><span class="sk-pct">62%</span></div> -->
+          </div>
+        </div>
+        <div class="sk-cat rev d2">
+          <div class="sk-cat-head"><span class="sk-cat-icon">🔧</span><span class="sk-cat-name">IaC &
+              Automation</span><span class="sk-cat-n">5</span></div>
+          <div class="sk-cat-body">
+            <div class="sk-item"><span class="sk-ico">🏗️</span><span class="sk-lbl">Terraform</span>
+              <div class="sk-bar">
+                <div class="sk-fill p" data-w="90"></div>
+              </div><span class="sk-pct">90%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">📜</span><span class="sk-lbl">Ansible</span>
+              <div class="sk-bar">
+                <div class="sk-fill p" data-w="82"></div>
+              </div><span class="sk-pct">82%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">🐍</span><span class="sk-lbl">Python</span>
+              <div class="sk-bar">
+                <div class="sk-fill p" data-w="75"></div>
+              </div><span class="sk-pct">75%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">🔩</span><span class="sk-lbl">Bash / Shell</span>
+              <div class="sk-bar">
+                <div class="sk-fill p" data-w="93"></div>
+              </div><span class="sk-pct">93%</span>
+            </div>
+            <div class="sk-item"><span class="sk-ico">⚡</span><span class="sk-lbl">GitHub Actions</span>
+              <div class="sk-bar">
+                <div class="sk-fill p" data-w="88"></div>
+              </div><span class="sk-pct">88%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tools-row rev">
+        <div class="tc-pill">🐧 Linux</div>
+        <div class="tc-pill">📊 Grafana</div>
+        <div class="tc-pill">📈 Prometheus</div>
+        <div class="tc-pill">📋 Loki</div>
+        <div class="tc-pill">🔔 AlertManager</div>
+        <div class="tc-pill">🐘 PostgreSQL</div>
+        <div class="tc-pill">🔴 Redis</div>
+        <div class="tc-pill">📨 Kafka</div>
+        <div class="tc-pill">🔐 Vault</div>
+        <div class="tc-pill">🌊 Nginx</div>
+        <div class="tc-pill">🔗 Jenkins</div>
+        <div class="tc-pill">📦 Harbor</div>
+        <div class="tc-pill">🔍 SonarQube</div>
+        <div class="tc-pill">🛡️ Trivy</div>
       </div>
     </div>
+  </section>
 
-    <form class="contact-form reveal reveal-delay-1" onsubmit="submitForm(event)">
-      <div class="cf-row">
-        <label class="cf-label">Name</label>
-        <input class="cf-input" type="text" placeholder="your name"/>
+  <!-- INTERACTIVE TERMINAL -->
+  <section id="iterm-section">
+    <div class="rev">
+      <div class="sec-label">section // 04 — interactive</div>
+      <div class="sec-header-title"
+        style="font-family:var(--sans);font-size:30px;font-weight:700;color:#fff;letter-spacing:-.6px;margin-bottom:.5rem">
+        Live Terminal</div>
+      <div style="font-size:12px;color:var(--muted2);margin-bottom:0">Type commands below. Try: <span
+          style="color:var(--green)">help</span> · <span style="color:var(--cyan)">neofetch</span> · <span
+          style="color:var(--yellow)">projects</span> · <span style="color:var(--purple)">contact</span> · <span
+          style="color:var(--green)">hire</span></div>
+    </div>
+    <div class="iterm-wrap rev d1">
+      <div class="iterm-bar">
+        <div class="wdot r"></div>
+        <div class="wdot y"></div>
+        <div class="wdot g"></div>
+        <span class="iterm-title">manthan@devops: ~/portfolio — zsh</span>
+        <div class="iterm-hints">
+          <span class="iterm-hint clickable" onclick="runCmd('help')">help</span>
+          <span class="iterm-hint clickable" onclick="runCmd('neofetch')">neofetch</span>
+          <span class="iterm-hint clickable" onclick="runCmd('projects')">projects</span>
+          <span class="iterm-hint clickable" onclick="runCmd('contact')">contact</span>
+          <span class="iterm-hint clickable" onclick="runCmd('clear')">clear</span>
+        </div>
       </div>
-      <div class="cf-row">
-        <label class="cf-label">Email</label>
-        <input class="cf-input" type="email" placeholder="your@email.com"/>
+      <div class="iterm-output" id="iterm-out"></div>
+      <div class="iterm-input-row">
+        <span class="inp-prompt"><span class="it-pu">manthan</span><span style="color:var(--muted2)">@</span><span
+            class="it-ph">devops</span><span style="color:var(--muted2)">:</span><span class="it-pp">~/portfolio</span>
+          $</span>
+        <input id="iterm-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command..." />
       </div>
-      <div class="cf-row">
-        <label class="cf-label">What are you building?</label>
-        <textarea class="cf-ta" placeholder="Tell me about your infra challenge..."></textarea>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="con-grid">
+      <div class="con-left rev">
+        <div class="con-pre">section // 05</div>
+        <div class="con-head">Let's build<br /><span>reliable</span> things.</div>
+        <p class="con-body">Open to full-time DevOps / SRE / Cloud roles and contract infra work. If you're scaling a
+          platform, cutting cloud costs, or building GitOps pipelines from scratch — I want to talk.</p>
+        <div class="con-links">
+          <a href="mailto:manthandsoni@gmail.com" class="clink">
+            <div class="clink-icon">✉</div>
+            <div class="clink-text">
+              <div class="clink-lbl">Email</div>
+              <div class="clink-val">manthandsoni@gmail.com</div>
+            </div>
+            <div class="clink-arr">↗</div>
+          </a>
+          <a href="https://github.com/Mdskun" target="_blank" rel="noopener" class="clink">
+            <div class="clink-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg></div>
+            <div class="clink-text">
+              <div class="clink-lbl">GitHub</div>
+              <div class="clink-val">github.com/Mdskun</div>
+            </div>
+            <div class="clink-arr">↗</div>
+          </a>
+          <a href="https://www.linkedin.com/in/manthan-soni-595641243/" target="_blank" rel="noopener" class="clink">
+            <div class="clink-icon" style="color:#0a66c2;font-weight:700;font-size:13px">in</div>
+            <div class="clink-text">
+              <div class="clink-lbl">LinkedIn</div>
+              <div class="clink-val">Manthan Soni</div>
+            </div>
+            <div class="clink-arr">↗</div>
+          </a>
+        </div>
       </div>
-      <button type="submit" class="cf-submit" id="cf-btn">send --message ↩</button>
-    </form>
-  </div>
-</section>
+      <form class="con-form rev d1" onsubmit="submitForm(event)">
+        <div class="cf-row"><label class="cf-lbl">Name</label><input class="cf-in" type="text"
+            placeholder="Your name" /></div>
+        <div class="cf-row"><label class="cf-lbl">Email</label><input class="cf-in" type="email"
+            placeholder="manthandsoni@gmail.com" /></div>
+        <div class="cf-row"><label class="cf-lbl">What are you building?</label><textarea class="cf-ta"
+            placeholder="Tell me about your infra challenge..."></textarea></div>
+        <button type="submit" class="cf-btn" id="cf-btn">send --message ↩</button>
+      </form>
+    </div>
+  </section>
 
-<!-- ══════════════ FOOTER ══════════════ -->
-<footer>
-  <div class="footer-left">© 2025 <span>Manthan Soni</span> // All systems operational</div>
-  <div class="footer-right">
-    <a href="https://github.com/Mdskun" class="footer-link" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/manthan-soni-595641243/" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
-  </div>
-</footer>
+  <footer>
+    <div class="f-left">© 2026 <span>Manthan Soni</span> // All systems nominal</div>
+    <div class="f-right">
+      <a href="https://github.com/Mdskun" class="f-link" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/manthan-soni-595641243/" class="f-link" target="_blank"
+        rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
 
-<script>
-/* ── CURSOR ── */
-const cur=document.getElementById('cursor');
-const ring=document.getElementById('cursor-ring');
-const dot=document.getElementById('cursor-dot');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function animCursor(){
-  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animCursor);
-})();
+  <script>
+    /* ── CURSOR ── */
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    const dot = document.getElementById('cur-dot');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px' });
+    (function ac() { rx += (mx - rx) * .13; ry += (my - ry) * .13; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(ac) })();
 
-/* ── BOOT SEQUENCE ── */
-const bootLines=[
-  {t:'BIOS v2.1.4 // Manthan-DevOps-Node',cls:''},
-  {t:'Checking memory... 32768 MB OK',cls:'ok dim'},
-  {t:'Loading kernel modules...',cls:'dim'},
-  {t:'Starting systemd services',cls:'ok dim'},
-  {t:'Mounting /dev/infra → /cloud',cls:'ok dim'},
-  {t:'Connecting to k8s cluster: prod-cluster',cls:'ok'},
-  {t:'Running terraform state refresh...',cls:'warn'},
-  {t:'All nodes healthy (12/12)',cls:'ok'},
-  {t:'GitHub Actions runner: READY',cls:'ok'},
-  {t:'Prometheus scrape interval: 15s',cls:'dim'},
-  {t:'Booting portfolio.service...',cls:''},
-];
-const bootContainer=document.getElementById('boot-lines');
-const bootBar=document.getElementById('boot-bar');
-let bi=0;
-function showNextBoot(){
-  if(bi>=bootLines.length){
-    bootBar.style.width='100%';
-    setTimeout(()=>{
-      document.getElementById('boot').classList.add('gone');
-      startTerminal();
-    },600);
-    return;
-  }
-  const l=bootLines[bi];
-  const d=document.createElement('div');
-  d.className='boot-line '+l.cls;
-  d.textContent=l.t;
-  bootContainer.appendChild(d);
-  setTimeout(()=>d.classList.add('show'),20);
-  bootBar.style.width=((bi+1)/bootLines.length*100)+'%';
-  bi++;
-  setTimeout(showNextBoot,130+Math.random()*120);
-}
-setTimeout(showNextBoot,400);
-
-/* ── UPTIME COUNTER ── */
-let s=0;
-setInterval(()=>{
-  s++;
-  const h=String(Math.floor(s/3600)).padStart(2,'0');
-  const m=String(Math.floor((s%3600)/60)).padStart(2,'0');
-  const sc=String(s%60).padStart(2,'0');
-  const t=h+':'+m+':'+sc;
-  document.getElementById('uptime-counter').textContent=t;
-  document.getElementById('term-time').textContent=t;
-},1000);
-
-/* ── TERMINAL TYPEWRITER ── */
-const termBlocks=[
-  {
-    cmd:'kubectl get nodes',
-    out:[
-      '<span class="t-white">NAME                     STATUS   ROLES           AGE   VERSION</span>',
-      '<span class="t-green">prod-node-1   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ready    control-plane   42d   v1.28.3</span>',
-      '<span class="t-green">prod-node-2   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ready    worker          42d   v1.28.3</span>',
-      '<span class="t-green">prod-node-3   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ready    worker          42d   v1.28.3</span>',
-      '<span class="t-green">prod-node-4   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ready    worker          38d   v1.28.3</span>',
-    ]
-  },
-  {
-    cmd:'terraform plan -out=prod.tfplan',
-    out:[
-      '<span class="t-cyan">Refreshing state...</span>',
-      '<span class="t-dim">aws_vpc.main: Refreshing... [id=vpc-0a1b2c3d]</span>',
-      '<span class="t-dim">aws_eks_cluster.prod: Refreshing... [id=prod-cluster]</span>',
-      '<span class="t-green">Plan: 2 to add, 1 to change, 0 to destroy.</span>',
-      '<span class="t-dim">Saved the plan to: prod.tfplan</span>',
-    ]
-  },
-  {
-    cmd:'helm upgrade --install app ./charts/app -n production',
-    out:[
-      '<span class="t-cyan">Release "app" has been upgraded. Happy Helming!</span>',
-      '<span class="t-dim">NAME: app</span>',
-      '<span class="t-dim">LAST DEPLOYED: '+new Date().toUTCString()+'</span>',
-      '<span class="t-green">STATUS: deployed</span>',
-      '<span class="t-dim">NOTES: Application is running at https://app.prod.internal</span>',
-    ]
-  },
-  {
-    cmd:'gh run list --limit 3',
-    out:[
-      '<span class="t-white">STATUS   NAME                  BRANCH   TIME</span>',
-      '<span class="t-green">✓ pass   Deploy to production  main     2m 14s</span>',
-      '<span class="t-green">✓ pass   Run tests             main     1m 03s</span>',
-      '<span class="t-yellow">● run    Build Docker image    feat/x   running</span>',
-    ]
-  },
-  {
-    cmd:'cat ~/.bashrc | grep alias',
-    out:[
-      '<span class="t-purple">alias k=\'kubectl\'</span>',
-      '<span class="t-purple">alias tf=\'terraform\'</span>',
-      '<span class="t-purple">alias d=\'docker\'</span>',
-      '<span class="t-purple">alias dc=\'docker-compose\'</span>',
-      '<span class="t-purple">alias kns=\'kubens\'</span>',
-    ]
-  },
-];
-
-let tbi=0;
-const termOut=document.getElementById('terminal-output');
-
-function typeCmd(text,cb){
-  const line=document.createElement('div');
-  line.className='t-prompt-line';
-  line.innerHTML=`<span class="t-user">manthan</span><span class="t-at">@</span><span class="t-host">devops</span><span class="t-at">:</span><span class="t-path">~/infra</span><span class="t-dollar"> $</span> <span class="t-input"></span><span class="t-cursor"></span>`;
-  termOut.appendChild(line);
-  const inputSpan=line.querySelector('.t-input');
-  const cursorSpan=line.querySelector('.t-cursor');
-  let ci=0;
-  const iv=setInterval(()=>{
-    if(ci<text.length){
-      inputSpan.textContent+=text[ci];ci++;
-      termOut.scrollTop=termOut.scrollHeight;
-    } else {
-      clearInterval(iv);
-      cursorSpan.remove();
-      setTimeout(cb,200);
+    /* ── BOOT ── */
+    const bootSeq = [
+      { t: 'BIOS v2.4.1 — Manthan-DevOps-Workstation', c: '' },
+      { t: 'Checking RAM... 32768 MB OK', c: 'ok d' },
+      { t: 'Detecting storage devices...', c: 'd' },
+      { t: 'sda: 512GB SSD detected', c: 'ok d' },
+      { t: 'Loading kernel 6.1.0-devops...', c: 'd' },
+      { t: 'Starting systemd services', c: 'ok d' },
+      { t: 'Mounting infra volumes', c: 'ok d' },
+      { t: 'Initialising Docker daemon...', c: 'ok' },
+      { t: 'Connecting to kubernetes: prod-cluster (3 nodes)', c: 'ok' },
+      { t: 'terraform state: 14 resources tracked', c: 'ok' },
+      { t: 'ansible inventory: 3 hosts reachable', c: 'ok' },
+      { t: 'GitHub Actions runner: ONLINE', c: 'ok' },
+      { t: 'Prometheus scrape: active (15s interval)', c: 'ok' },
+      { t: 'Grafana dashboards: 6 loaded', c: 'd' },
+      { t: 'portfolio.service: starting...', c: '' },
+    ];
+    const bl = document.getElementById('bootlines');
+    const bf = document.getElementById('bfill');
+    let bi = 0;
+    function nb() {
+      if (bi >= bootSeq.length) { bf.style.width = '100%'; setTimeout(() => { document.getElementById('boot').classList.add('out'); setTimeout(() => startProjTerm(), 400) }, 500); return }
+      const s = bootSeq[bi];
+      const d = document.createElement('div');
+      d.className = 'bl ' + s.c;
+      d.textContent = s.t;
+      bl.appendChild(d);
+      setTimeout(() => d.classList.add('vis'), 20);
+      bf.style.width = ((bi + 1) / bootSeq.length * 100) + '%';
+      bi++;
+      setTimeout(nb, 100 + Math.random() * 80);
     }
-  },28+Math.random()*22);
-}
+    setTimeout(nb, 300);
 
-function showOutput(lines,cb){
-  const out=document.createElement('div');
-  out.className='t-output';
-  termOut.appendChild(out);
-  let li=0;
-  function next(){
-    if(li>=lines.length){cb();return}
-    const d=document.createElement('div');
-    d.className='t-out-line';
-    d.innerHTML=lines[li];
-    out.appendChild(d);
-    termOut.scrollTop=termOut.scrollHeight;
-    li++;
-    setTimeout(next,90);
-  }
-  next();
-}
+    /* ── UPTIME ── */
+    let sec = 0;
+    setInterval(() => {
+      sec++;
+      const h = String(Math.floor(sec / 3600)).padStart(2, '0');
+      const m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      const t = h + ':' + m + ':' + s;
+      document.getElementById('upt').textContent = t;
+      document.getElementById('pt-clock').textContent = t;
+    }, 1000);
 
-function startTerminal(){
-  function runBlock(){
-    const b=termBlocks[tbi%termBlocks.length];
-    typeCmd(b.cmd,()=>{
-      showOutput(b.out,()=>{
-        tbi++;
-        setTimeout(runBlock,1800);
+    /* ── PROJECT TERMINAL DATA ── */
+    const projData = [
+      {
+        name: 'docker-app',
+        branch: 'feat/redis-cache',
+        lines: [
+          { cmd: 'docker-compose up -d', delay: 0 },
+          {
+            out: [
+              '<span class="tdm">Creating network "app_default"</span>',
+              '<span class="tdm">Pulling postgres ... done</span>',
+              '<span class="tdm">Pulling redis ... done</span>',
+              '<span class="tg">Creating app_postgres_1 ... done</span>',
+              '<span class="tg">Creating app_redis_1 ... done</span>',
+              '<span class="tg">Creating app_web_1 ... done</span>',
+              '<span class="tg">Creating app_nginx_1 ... done</span>',
+            ], delay: 0
+          },
+          { cmd: 'docker ps --format "table {{.Names}}\\t{{.Status}}\\t{{.Ports}}"', delay: 500 },
+          {
+            out: [
+              '<span class="tw">NAMES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTS</span>',
+              '<span class="tg">app_nginx_1&nbsp;&nbsp;Up 4 sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:80→80/tcp, 443→443/tcp</span>',
+              '<span class="tg">app_web_1&nbsp;&nbsp;&nbsp;&nbsp;Up 4 sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:3000→3000/tcp</span>',
+              '<span class="tg">app_redis_1&nbsp;&nbsp;Up 4 sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6379/tcp</span>',
+              '<span class="tg">app_postgres_1 Up 5 sec&nbsp;&nbsp;&nbsp;&nbsp;5432/tcp</span>',
+            ], delay: 300
+          },
+          { cmd: 'docker stats --no-stream --format "{{.Name}}: CPU {{.CPUPerc}} MEM {{.MemUsage}}"', delay: 400 },
+          {
+            out: [
+              '<span class="tc">app_nginx_1: CPU 0.02% MEM 12MiB / 512MiB</span>',
+              '<span class="tc">app_web_1: CPU 1.4% MEM 128MiB / 512MiB</span>',
+              '<span class="ty">app_redis_1: CPU 0.1% MEM 8MiB / 256MiB</span>',
+              '<span class="tc">app_postgres_1: CPU 0.5% MEM 64MiB / 512MiB</span>',
+              '<span class="tdm">All containers healthy ✓</span>',
+            ], delay: 300
+          },
+        ]
+      },
+      {
+        name: 'k8s-cluster',
+        branch: 'main',
+        lines: [
+          { cmd: 'kubectl get nodes -o wide', delay: 0 },
+          {
+            out: [
+              '<span class="tw">NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;ROLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VERSION</span>',
+              '<span class="tg">node-1&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;control-plane&nbsp;v1.28.3</span>',
+              '<span class="tg">node-2&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;worker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v1.28.3</span>',
+              '<span class="tg">node-3&nbsp;&nbsp;&nbsp;Ready&nbsp;&nbsp;&nbsp;worker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v1.28.3</span>',
+            ], delay: 0
+          },
+          { cmd: 'kubectl get pods -n production --sort-by=.status.phase', delay: 400 },
+          {
+            out: [
+              '<span class="tw">NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READY&nbsp;STATUS&nbsp;&nbsp;&nbsp;RESTARTS</span>',
+              '<span class="tg">api-deploy-7d9b-xk2p&nbsp;&nbsp;2/2&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0</span>',
+              '<span class="tg">api-deploy-7d9b-m8ql&nbsp;&nbsp;2/2&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0</span>',
+              '<span class="tg">web-deploy-4c3a-pqrs&nbsp;&nbsp;1/1&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;0</span>',
+              '<span class="tg">worker-job-v2-hxyz&nbsp;&nbsp;&nbsp;&nbsp;1/1&nbsp;&nbsp;&nbsp;Running&nbsp;&nbsp;1</span>',
+              '<span class="tdm">4/4 pods running • 0 restarts</span>',
+            ], delay: 300
+          },
+          { cmd: 'kubectl top nodes', delay: 400 },
+          {
+            out: [
+              '<span class="tw">NAME&nbsp;&nbsp;&nbsp;&nbsp;CPU(cores)&nbsp;CPU%&nbsp;MEMORY(bytes)&nbsp;MEMORY%</span>',
+              '<span class="tg">node-1&nbsp;&nbsp;210m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5%&nbsp;&nbsp;&nbsp;1024Mi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32%</span>',
+              '<span class="tc">node-2&nbsp;&nbsp;620m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15%&nbsp;&nbsp;2048Mi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64%</span>',
+              '<span class="tg">node-3&nbsp;&nbsp;310m&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7%&nbsp;&nbsp;&nbsp;1280Mi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40%</span>',
+            ], delay: 300
+          },
+        ]
+      },
+      {
+        name: 'tf-aws-infra',
+        branch: 'infra/v2',
+        lines: [
+          { cmd: 'terraform validate && terraform plan', delay: 0 },
+          {
+            out: [
+              '<span class="tg">Success! The configuration is valid.</span>',
+              '<span class="tdm">Refreshing state from remote backend...</span>',
+              '<span class="tc">aws_vpc.main: Refreshing... [id=vpc-0a1b2c3d]</span>',
+              '<span class="tc">aws_eks_cluster.prod: Refreshing... [id=prod-cluster]</span>',
+              '<span class="tc">aws_rds_instance.main: Refreshing... [id=db-prod-01]</span>',
+            ], delay: 0
+          },
+          {
+            out: [
+              '<span class="tg">+ aws_security_group.new_rule</span>',
+              '<span class="ty">~ aws_eks_node_group.workers (update in-place)</span>',
+              '<span class="tdm">  ~ desired_size: 2 → 3</span>',
+              '<span class="tg">Plan: 1 to add, 1 to change, 0 to destroy.</span>',
+            ], delay: 300
+          },
+          { cmd: 'terraform apply -auto-approve', delay: 500 },
+          {
+            out: [
+              '<span class="tc">aws_security_group.new_rule: Creating...</span>',
+              '<span class="tg">aws_security_group.new_rule: Created [id=sg-0abc123]</span>',
+              '<span class="tc">aws_eks_node_group.workers: Modifying...</span>',
+              '<span class="tg">aws_eks_node_group.workers: Modified [nodes: 2→3]</span>',
+              '<span class="ty">Apply complete! Resources: 1 added, 1 changed, 0 destroyed.</span>',
+            ], delay: 300
+          },
+        ]
+      },
+      {
+        name: 'ansible-setup',
+        branch: 'playbooks/nginx',
+        lines: [
+          { cmd: 'ansible -i inventory/prod all -m ping', delay: 0 },
+          {
+            out: [
+              '<span class="tg">web-01 | SUCCESS =&gt; {"ping":"pong"}</span>',
+              '<span class="tg">web-02 | SUCCESS =&gt; {"ping":"pong"}</span>',
+              '<span class="tg">db-01  | SUCCESS =&gt; {"ping":"pong"}</span>',
+            ], delay: 0
+          },
+          { cmd: 'ansible-playbook -i inventory/prod site.yml --diff', delay: 400 },
+          {
+            out: [
+              '<span class="tw">PLAY [Configure web servers] ***</span>',
+              '<span class="tdm">TASK [Gathering Facts]</span>',
+              '<span class="tg">ok: [web-01]</span>',
+              '<span class="tg">ok: [web-02]</span>',
+              '<span class="tdm">TASK [Install packages]</span>',
+              '<span class="tg">changed: [web-01] =&gt; nginx=1.24.0</span>',
+              '<span class="tg">changed: [web-02] =&gt; nginx=1.24.0</span>',
+              '<span class="tdm">TASK [Deploy SSL certs]</span>',
+              '<span class="tc">ok: [web-01]</span>',
+              '<span class="tc">ok: [web-02]</span>',
+              '<span class="ty">PLAY RECAP: ok=9, changed=4, failed=0</span>',
+            ], delay: 200
+          },
+        ]
+      },
+      {
+        name: 'ci-cd-pipeline',
+        branch: 'main',
+        lines: [
+          { cmd: 'gh run list --limit 5 --repo Mdskun/app', delay: 0 },
+          {
+            out: [
+              '<span class="tw">STATUS&nbsp;&nbsp;TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BRANCH&nbsp;ELAPSED</span>',
+              '<span class="tg">✓ pass&nbsp;&nbsp;Deploy → production&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;&nbsp;&nbsp;2m14s</span>',
+              '<span class="tg">✓ pass&nbsp;&nbsp;Run unit+integration tests&nbsp;&nbsp;main&nbsp;&nbsp;&nbsp;1m03s</span>',
+              '<span class="tg">✓ pass&nbsp;&nbsp;Docker build & push to ECR&nbsp;&nbsp;main&nbsp;&nbsp;&nbsp;3m44s</span>',
+              '<span class="ty">● run&nbsp;&nbsp;&nbsp;Build on feature/new-api&nbsp;&nbsp;&nbsp;&nbsp;feat/x&nbsp;running</span>',
+              '<span class="tg">✓ pass&nbsp;&nbsp;Lint & SAST scan (Trivy)&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;&nbsp;&nbsp;45s</span>',
+            ], delay: 0
+          },
+          { cmd: 'gh run view --log --exit-status 2>&1 | tail -8', delay: 400 },
+          {
+            out: [
+              '<span class="tdm">deploy&nbsp;&nbsp;Set up job</span>',
+              '<span class="tg">deploy&nbsp;&nbsp;Pull Docker image from ECR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✓</span>',
+              '<span class="tg">deploy&nbsp;&nbsp;Run helm upgrade --install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✓</span>',
+              '<span class="tg">deploy&nbsp;&nbsp;Smoke test — GET /health → 200&nbsp;&nbsp;&nbsp;✓</span>',
+              '<span class="tg">deploy&nbsp;&nbsp;Notify Slack #deployments&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✓</span>',
+              '<span class="ty">deploy&nbsp;&nbsp;Completed in 2m14s</span>',
+            ], delay: 300
+          },
+        ]
+      },
+    ];
+
+    /* ── PROJECT TERMINAL ENGINE ── */
+    let curProj = 0, ptRunning = false, ptTimers = [];
+
+    function clearPT() { ptTimers.forEach(t => clearTimeout(t)); ptTimers = []; document.getElementById('pt-body').innerHTML = ''; ptRunning = false }
+
+    function addLine(html) {
+      const d = document.createElement('div');
+      d.innerHTML = html;
+      const b = document.getElementById('pt-body');
+      b.appendChild(d);
+      b.scrollTop = b.scrollHeight;
+      return d;
+    }
+
+    function ptPromptLine(cmd) {
+      return addLine(`<div class="tl"><span class="tp">❯</span><span class="tcmd">${cmd}</span></div>`);
+    }
+
+    function ptOutputBlock(lines) {
+      const w = addLine('<div class="tout"></div>');
+      const inner = w.querySelector('.tout');
+      lines.forEach(l => { const d = document.createElement('div'); d.innerHTML = l; inner.appendChild(d) });
+      document.getElementById('pt-body').scrollTop = 99999;
+    }
+
+    function runProject(idx) {
+      clearPT();
+      curProj = idx;
+      const p = projData[idx];
+      document.getElementById('pt-title').textContent = 'bash — ' + p.name;
+      document.getElementById('pt-branch').textContent = p.name;
+      document.querySelectorAll('.ptab').forEach((t, i) => t.classList.toggle('on', i === idx));
+      ptRunning = true;
+      let offset = 400;
+      p.lines.forEach(step => {
+        offset += step.delay || 0;
+        if (step.cmd !== undefined) {
+          const t = setTimeout(() => {
+            if (!ptRunning) return;
+            const row = ptPromptLine('');
+            const span = row.querySelector('.tcmd');
+            let ci = 0;
+            const iv = setInterval(() => {
+              if (!ptRunning) { clearInterval(iv); return }
+              if (ci < step.cmd.length) { span.textContent += step.cmd[ci]; ci++; document.getElementById('pt-body').scrollTop = 99999 }
+              else clearInterval(iv);
+            }, 22 + Math.random() * 16);
+            ptTimers.push(iv);
+          }, offset);
+          offset += step.cmd.length * 28 + 200;
+          ptTimers.push(t);
+        }
+        if (step.out !== undefined) {
+          const t = setTimeout(() => { if (!ptRunning) return; ptOutputBlock(step.out) }, offset);
+          offset += step.out.length * 90 + 300;
+          ptTimers.push(t);
+        }
       });
+      // add blinking cursor at end
+      ptTimers.push(setTimeout(() => {
+        if (!ptRunning) return;
+        addLine(`<div class="tl"><span class="tp">❯</span>&nbsp;<span class="tblk"></span></div>`);
+      }, offset));
+    }
+
+    function startProjTerm() { runProject(0) }
+
+    document.querySelectorAll('.ptab').forEach((tab, i) => {
+      tab.addEventListener('click', () => runProject(i));
     });
-  }
-  runBlock();
-}
 
-/* ── MARQUEE ── */
-const marqueeItems=[
-  {t:'Kubernetes',hi:true},{t:'Terraform'},{t:'Docker',hi:true},
-  {t:'AWS'},{t:'GitHub Actions',hi:true},{t:'Helm'},
-  {t:'Prometheus'},{t:'Grafana',hi:true},{t:'ArgoCD'},
-  {t:'Ansible'},{t:'Linux',hi:true},{t:'CI/CD'},
-  {t:'GCP'},{t:'Bash'},{t:'Vault',hi:true},{t:'Nginx'},
-];
-const track=document.getElementById('marquee-track');
-[...marqueeItems,...marqueeItems].forEach(i=>{
-  const div=document.createElement('div');
-  div.className='marquee-item'+(i.hi?' hi':'');
-  div.innerHTML=`<span class="dot"></span>${i.t}`;
-  track.appendChild(div);
-});
+    /* ── MARQUEE ── */
+    // const mis = ['Kubernetes', 'Terraform', 'Docker', 'AWS', 'GitHub Actions', 'Helm', 'Prometheus', 'Grafana', 'ArgoCD', 'Ansible', 'Linux', 'CI/CD', 'GCP', 'Bash', 'Vault', 'Nginx', 'Jenkins', 'SonarQube', 'Trivy', 'Harbor'];
+    // const mt = document.getElementById('mtrack');
+    // [...mis, ...mis].forEach(n => {
+    //   const d = document.createElement('div');
+    //   const hi = ['Kubernetes', 'Docker', 'Terraform', 'ArgoCD', 'Prometheus', 'GitHub Actions'].includes(n);
+    //   d.className = 'mi' + (hi ? ' hi' : '');
+    //   d.innerHTML = `<span class="mi-dot"></span>${n}`;
+    //   mt.appendChild(d);
+    // });
 
-/* ── SCROLL REVEAL ── */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('up');ro.unobserve(e.target)}});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+    /* ── SCROLL REVEAL ── */
+    const ro = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target) } }) }, { threshold: .1 });
+    document.querySelectorAll('.rev').forEach(el => ro.observe(el));
 
-/* ── SKILL BARS ── */
-const so=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.skill-lvl-fill').forEach(bar=>{
-        const w=bar.dataset.w;
-        bar.style.width='0';
-        setTimeout(()=>{bar.style.width=w+'%'},100);
-      });
-      so.unobserve(e.target);
+    /* ── SKILL BARS ── */
+    const so = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll('.sk-fill').forEach(b => { const w = b.dataset.w; b.style.width = 0; setTimeout(() => { b.style.width = w + '%' }, 100) }); so.unobserve(e.target) } }) }, { threshold: .2 });
+    document.querySelectorAll('.sk-cat').forEach(el => so.observe(el));
+
+    /* ─────────────────────────────────────
+       INTERACTIVE TERMINAL
+    ───────────────────────────────────── */
+    const itOut = document.getElementById('iterm-out');
+    const itInput = document.getElementById('iterm-input');
+    let cmdHistory = [], histIdx = -1;
+
+    const NOW = () => new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+    const COMMANDS = {
+      help: () => [
+        '<span class="tg">Available commands:</span>',
+        '',
+        '<span class="tc">  about</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Who is Manthan?</span>',
+        '<span class="tc">  neofetch</span><span class="td">&nbsp;&nbsp;&nbsp;→ System info (DevOps style)</span>',
+        '<span class="tc">  projects</span><span class="td">&nbsp;&nbsp;&nbsp;→ List all projects</span>',
+        '<span class="tc">  project &lt;n&gt;</span><span class="td"> → Project detail (1–4)</span>',
+        '<span class="tc">  skills</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Tech stack overview</span>',
+        '<span class="tc">  contact</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;→ Get in touch</span>',
+        '<span class="tc">  certs</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Certifications</span>',
+        '<span class="tc">  hire</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Why hire Manthan?</span>',
+        '<span class="tc">  github</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Open GitHub profile</span>',
+        '<span class="tc">  linkedin</span><span class="td">&nbsp;&nbsp;&nbsp;→ Open LinkedIn profile</span>',
+        '<span class="tc">  whoami</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Quick identity</span>',
+        '<span class="tc">  ping manthan</span><span class="td">→ Are you there?</span>',
+        '<span class="tc">  uptime</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Session uptime</span>',
+        '<span class="tc">  date</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Current IST time</span>',
+        '<span class="tc">  ls</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ List page sections</span>',
+        '<span class="tc">  clear</span><span class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Clear terminal</span>',
+        '',
+        '<span class="td">tip: press ↑/↓ to navigate history</span>',
+      ],
+
+      about: () => [
+        '<span class="tw">┌─ About Manthan Soni ─────────────────────────────────────────┐</span>',
+        '<span class="tw">│</span>',
+        '<span class="tw">│</span>  <span class="tg">Role    :</span> DevOps & Cloud Engineer',
+        '<span class="tw">│</span>  <span class="tg">Based   :</span> Ahmedabad, India (21.17°N 72.83°E)',
+        '<span class="tw">│</span>  <span class="tg">GitHub  :</span> <span class="tc">github.com/Mdskun</span>',
+        '<span class="tw">│</span>  <span class="tg">LinkedIn:</span> <span class="tc">linkedin.com/in/manthan-soni-595641243</span>',
+        '<span class="tw">│</span>',
+        '<span class="tw">│</span>  I build infra that ships products. Kubernetes, Terraform,',
+        '<span class="tw">│</span>  CI/CD pipelines, cloud cost optimisation — I live here.',
+        '<span class="tw">│</span>  <span class="ty">Philosophy: automate everything, document everything.</span>',
+        '<span class="tw">│</span>',
+        '<span class="tw">└──────────────────────────────────────────────────────────────┘</span>',
+      ],
+
+      neofetch: () => [
+        '<span class="tg">                    .,,,,,,.</span>        <span class="tw">manthan</span><span class="td">@</span><span class="tc">devops-workstation</span>',
+        '<span class="tg">                 ,$$$$$$$$$$$$,</span>       <span class="td">──────────────────────────────</span>',
+        '<span class="tg">              ,$$$$$$$$$$$$$$$$,</span>      <span class="tg">OS    :</span> Ubuntu 22.04 LTS x86_64',
+        '<span class="tg">            ,$$$$$$$$\'</span><span class="tc">"</span><span class="tg">\'$$$$$$$$,</span>    <span class="tg">Shell :</span> zsh 5.9 + oh-my-zsh',
+        '<span class="tg">           $$$$$$$$\'</span><span class="tc">  ψ  </span><span class="tg">\'$$$$$$$$</span>   <span class="tg">Editor:</span> Neovim 0.9 (btw)',
+        '<span class="tg">          $$$$$$$$\'</span><span class="tc"> K8s </span><span class="tg">\'$$$$$$$$</span>   <span class="tg">Tools :</span> kubectl, terraform, helm',
+        '<span class="tg">           $$$$$$$$,</span><span class="tc">   </span><span class="tg">,$$$$$$$$$</span>   <span class="tg">Cloud :</span> AWS (primary), GCP, Azure',
+        '<span class="tg">            \'$$$$$$$$$$$$$$$$$\'</span>      <span class="tg">Uptime:</span> <span id="nf-uptime">calculating...</span>',
+        '<span class="tg">              \'$$$$$$$$$$$$$\'</span>        <span class="tg">Status:</span> <span class="tg">✓ All systems nominal</span>',
+        '<span class="tg">                 \'\'$$$$$\'\'</span>           <span class="tg">Mood  :</span> automating things 🚀',
+        '',
+        '  <span style="background:#00ff88;color:#04070d;padding:1px 5px">  </span><span style="background:#00d4ff;color:#04070d;padding:1px 5px">  </span><span style="background:#9d6fff;color:#04070d;padding:1px 5px">  </span><span style="background:#ffd700;color:#04070d;padding:1px 5px">  </span><span style="background:#ff4444;color:#04070d;padding:1px 5px">  </span><span style="background:#ff7b35;color:#04070d;padding:1px 5px">  </span>',
+      ],
+
+      projects: () => [
+        '<span class="tg">$ ls -la ~/projects</span>',
+        '',
+        '<span class="tw">  #  Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</span>',
+        '<span class="td">  ─  ────&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;─────&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;──────</span>',
+        '<span class="tg">  1  docker-microservices&nbsp;&nbsp;&nbsp;&nbsp;Docker, Compose, Nginx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;github.com/Mdskun</span>',
+        '<span class="tc">  2  k8s-prod-cluster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKS, Helm, ArgoCD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;github.com/Mdskun</span>',
+        '<span class="tpu">  3  terraform-aws-infra&nbsp;&nbsp;&nbsp;&nbsp;Terraform, VPC, EKS, RDS&nbsp;&nbsp;&nbsp;github.com/Mdskun</span>',
+        '<span class="ty">  4  ansible-config-mgmt&nbsp;&nbsp;&nbsp;&nbsp;Ansible, Nginx, Postgres&nbsp;&nbsp;&nbsp;github.com/Mdskun</span>',
+        '',
+        '<span class="td">  run "project 1" for details &nbsp;·&nbsp; "github" to view all repos</span>',
+      ],
+
+      'project 1': () => [
+        '<span class="tg">── docker-microservices ──────────────────────────────────────</span>',
+        '<span class="tw">Description :</span> Multi-container app stack with Nginx, Redis, Postgres',
+        '<span class="tw">Containers  :</span> <span class="tg">5 running</span> (web, nginx, redis, postgres, prometheus)',
+        '<span class="tw">Compose     :</span> Production + dev overrides, health checks, volumes',
+        '<span class="tw">Monitoring  :</span> Prometheus scraping all containers, Grafana dashboards',
+        '<span class="tw">Stack       :</span> Docker, Docker Compose, Nginx, Redis, PostgreSQL',
+        '<span class="tc">GitHub      :</span> <span class="tc">github.com/Mdskun — update with real repo link</span>',
+      ],
+      'project 2': () => [
+        '<span class="tc">── k8s-prod-cluster ──────────────────────────────────────────</span>',
+        '<span class="tw">Description :</span> Production Kubernetes cluster on AWS EKS',
+        '<span class="tw">Nodes       :</span> 3 nodes (1 control-plane, 2 workers)',
+        '<span class="tw">Workloads   :</span> <span class="tg">4 pods running</span> (API ×2, web ×2)',
+        '<span class="tw">GitOps      :</span> ArgoCD syncing from GitHub main branch',
+        '<span class="tw">Autoscale   :</span> HPA on CPU >70% → scales to max 8 replicas',
+        '<span class="tw">Stack       :</span> EKS, Helm, ArgoCD, RBAC, HPA, ClusterAutoscaler',
+        '<span class="tc">GitHub      :</span> <span class="tc">github.com/Mdskun — update with real repo link</span>',
+      ],
+      'project 3': () => [
+        '<span class="tpu">── terraform-aws-infra ───────────────────────────────────────</span>',
+        '<span class="tw">Description :</span> Modular Terraform for full AWS environment',
+        '<span class="tw">Resources   :</span> <span class="tg">14 tracked</span> — VPC, EKS, RDS, IAM, S3, SGs',
+        '<span class="tw">Environments:</span> dev / staging / prod (workspace-based)',
+        '<span class="tw">Backend     :</span> S3 remote state + DynamoDB locking',
+        '<span class="tw">Stack       :</span> Terraform 1.6, AWS Provider 5.x, terragrunt',
+        '<span class="tc">GitHub      :</span> <span class="tc">github.com/Mdskun — update with real repo link</span>',
+      ],
+      'project 4': () => [
+        '<span class="ty">── ansible-config-mgmt ───────────────────────────────────────</span>',
+        '<span class="tw">Description :</span> Ansible playbooks for server config & app deploy',
+        '<span class="tw">Hosts       :</span> <span class="tg">3 reachable</span> (web-01, web-02, db-01)',
+        '<span class="tw">Roles       :</span> common, nginx, postgres, ssl-certs, firewall',
+        '<span class="tw">Last run    :</span> ok=9, changed=4, failed=0',
+        '<span class="tw">Stack       :</span> Ansible 2.15, Python 3.11, SSH key auth',
+        '<span class="tc">GitHub      :</span> <span class="tc">github.com/Mdskun — update with real repo link</span>',
+      ],
+
+      skills: () => [
+        '<span class="tg">Cloud Platforms :</span> AWS (90%) · GCP (72%) · Azure (60%) · Cloudflare (78%)',
+        '<span class="tc">Containers      :</span> Docker (95%) · Kubernetes (88%) · Helm (83%) · ArgoCD (76%)',
+        '<span class="tpu">IaC & Automation:</span> Terraform (90%) · Ansible (82%) · Bash (93%) · GitHub Actions (88%)',
+        '<span class="ty">Observability   :</span> Prometheus · Grafana · Loki · Alertmanager · PagerDuty',
+        '<span class="tw">Databases       :</span> PostgreSQL · Redis · MySQL',
+        '<span class="td">Security        :</span> Vault · Trivy · SonarQube · RBAC · cert-manager',
+      ],
+
+      contact: () => [
+        '<span class="tg">── Contact Manthan Soni ──────────────────────────────────────</span>',
+        '',
+        '<span class="tc">Email    :</span> manthandsoni@gmail.com <span class="td">(← update this)</span>',
+        '<span class="tc">GitHub   :</span> github.com/Mdskun',
+        '<span class="tc">LinkedIn :</span> linkedin.com/in/manthan-soni-595641243',
+        '<span class="tc">Location :</span> Ahmedabad, India (open to remote globally)',
+        '',
+        '<span class="ty">Available for: Full-time DevOps / SRE / Cloud Engineer roles</span>',
+        '<span class="ty">Also open to: Contract infra work, consulting, freelance</span>',
+        '',
+        '<span class="td">Run "github" or "linkedin" to open profiles in browser.</span>',
+      ],
+
+      certs: () => [
+        '<span class="tg">── Certifications ────────────────────────────────────────────</span>',
+        '',
+        '<span class="to">  🟠  AWS Solutions Architect Associate</span>',
+        '<span class="td">       Amazon Web Services · Add your cert ID here</span>',
+        '',
+        '<span class="tc">  ⎈   Certified Kubernetes Administrator (CKA)</span>',
+        '<span class="td">       CNCF · Add your cert ID here</span>',
+        '',
+        '<span class="tg">  🔵  Google Cloud Associate Cloud Engineer</span>',
+        '<span class="td">       Google Cloud · Add your cert ID here</span>',
+        '',
+        '<span class="tpu">  🟦  Microsoft Azure Fundamentals (AZ-900)</span>',
+        '<span class="td">       Microsoft · Add your cert ID here</span>',
+        '',
+        '<span class="td">  Update these in the about section of index.html</span>',
+      ],
+
+      hire: () => [
+        '<span class="tg">$ cat why-hire-manthan.md</span>',
+        '',
+        '<span class="tw">1. Zero Manual Deploys</span>',
+        '<span class="td">   Everything is automated. Terraform provisions it, Ansible configures it,</span>',
+        '<span class="td">   GitHub Actions deploys it, ArgoCD keeps it synced.</span>',
+        '',
+        '<span class="tw">2. Thinks in Systems</span>',
+        '<span class="td">   Not just "make it run" — make it observable, scalable, and fault-tolerant.</span>',
+        '',
+        '<span class="tw">3. Infra as Code, Always</span>',
+        '<span class="td">   No undocumented snowflake servers. Everything lives in Git.</span>',
+        '',
+        '<span class="tw">4. Cloud Cost Aware</span>',
+        '<span class="td">   I design for efficiency. Right-sizing, spot instances, reserved capacity.</span>',
+        '',
+        '<span class="tw">5. Shipping, Not Just Maintaining</span>',
+        '<span class="td">   I build platforms that help developers ship 10x faster.</span>',
+        '',
+        '<span class="tg">→ Run "contact" to reach out, or "linkedin" to connect.</span>',
+      ],
+
+      whoami: () => [
+        '<span class="tg">manthan</span> — DevOps & Cloud Engineer',
+        '<span class="td">uid=1000(manthan) gid=1000(devops) groups=k8s,terraform,aws,docker</span>',
+      ],
+
+      github: () => { window.open('https://github.com/Mdskun', '_blank'); return ['<span class="tg">Opening github.com/Mdskun ...</span>'] },
+      linkedin: () => { window.open('https://www.linkedin.com/in/manthan-soni-595641243/', '_blank'); return ['<span class="tg">Opening LinkedIn profile ...</span>'] },
+
+      uptime: () => [`<span class="tg">Session uptime: ${document.getElementById('upt').textContent}</span>`],
+      date: () => [`<span class="tc">${NOW()}&nbsp;&nbsp;(IST)</span>`],
+
+      ls: () => [
+        '<span class="tw">drwxr-xr-x  hero/</span>',
+        '<span class="tw">drwxr-xr-x  about/</span>',
+        '<span class="tw">drwxr-xr-x  projects/</span>',
+        '<span class="tw">drwxr-xr-x  skills/</span>',
+        '<span class="tw">drwxr-xr-x  terminal/</span>',
+        '<span class="tw">drwxr-xr-x  contact/</span>',
+      ],
+
+      clear: () => { itOut.innerHTML = ''; return null },
+
+      'ping manthan': () => [
+        '<span class="tc">PING manthan.soni (21.17.72.83): 56 bytes</span>',
+        '<span class="tg">64 bytes from manthan: icmp_seq=0 ttl=64 time=1.2 ms</span>',
+        '<span class="tg">64 bytes from manthan: icmp_seq=1 ttl=64 time=0.9 ms</span>',
+        '<span class="tg">64 bytes from manthan: icmp_seq=2 ttl=64 time=1.1 ms</span>',
+        '<span class="ty">--- manthan.soni ping statistics: 3 packets, 0% loss ---</span>',
+      ],
+    };
+
+    function itPrompt(cmd) {
+      const d = document.createElement('div');
+      d.className = 'it-prompt-row';
+      d.innerHTML = `<span class="it-pu">manthan</span><span style="color:var(--muted2)">@</span><span class="it-ph">devops</span><span style="color:var(--muted2)">:</span><span class="it-pp">~/portfolio</span><span class="it-ps"> $</span>&nbsp;<span style="color:#fff">${cmd}</span>`;
+      itOut.appendChild(d);
     }
-  });
-},{threshold:0.2});
-document.querySelectorAll('.skill-category').forEach(el=>so.observe(el));
 
-/* ── FORM ── */
-function submitForm(e){
-  e.preventDefault();
-  const btn=document.getElementById('cf-btn');
-  btn.textContent='message --sent ✓';
-  btn.style.color='var(--green)';
-  btn.style.borderColor='rgba(0,255,136,0.5)';
-  btn.style.background='rgba(0,255,136,0.06)';
-}
-</script>
+    function itResult(lines) {
+      if (!lines) return;
+      const d = document.createElement('div');
+      d.className = 'it-result';
+      d.innerHTML = lines.map(l => `<div class="it-line">${l === '' ? '&nbsp;' : l}</div>`).join('');
+      itOut.appendChild(d);
+      itOut.scrollTop = itOut.scrollHeight;
+    }
+
+    function runCmd(raw) {
+      const cmd = raw.trim().toLowerCase();
+      if (!cmd) return;
+      cmdHistory.unshift(raw); histIdx = -1;
+      itPrompt(raw);
+      if (COMMANDS[cmd]) {
+        const r = COMMANDS[cmd]();
+        if (r) itResult(r);
+      } else if (cmd.startsWith('echo ')) {
+        itResult([`<span class="tw">${raw.slice(5)}</span>`]);
+      } else if (cmd === 'sudo !!') {
+        itResult(['<span class="tr">Permission denied. Nice try.</span>']);
+      } else if (cmd.startsWith('cd ')) {
+        const sec = cmd.slice(3).trim();
+        const map = { about: '#about', projects: '#projects', skills: '#skills', contact: '#contact', terminal: '#iterm-section' };
+        if (map[sec]) { document.querySelector(map[sec]).scrollIntoView({ behavior: 'smooth' }); itResult([`<span class="tg">Navigating to /${sec}</span>`]) }
+        else itResult([`<span class="tr">cd: ${sec}: No such section</span>`]);
+      } else if (cmd === 'rm -rf /' || cmd === 'rm -rf *') {
+        itResult(['<span class="tr">Nice try. System protected. 😄</span>']);
+      } else if (cmd === 'vim' || cmd === 'vi') {
+        itResult(['<span class="td">hint: type :q to exit (just kidding, use clear instead)</span>']);
+      } else {
+        itResult([`<span class="tr">command not found: ${raw}</span>`, `<span class="td">run 'help' for available commands</span>`]);
+      }
+    }
+
+    itInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { runCmd(itInput.value); itInput.value = '' }
+      else if (e.key === 'ArrowUp') { histIdx = Math.min(histIdx + 1, cmdHistory.length - 1); itInput.value = cmdHistory[histIdx] || ''; e.preventDefault() }
+      else if (e.key === 'ArrowDown') { histIdx = Math.max(histIdx - 1, -1); itInput.value = histIdx < 0 ? '' : cmdHistory[histIdx]; e.preventDefault() }
+      else if (e.key === 'Tab') {
+        e.preventDefault();
+        const v = itInput.value.toLowerCase();
+        const match = Object.keys(COMMANDS).find(k => k.startsWith(v));
+        if (match) itInput.value = match;
+      }
+    });
+
+    // Welcome message
+    setTimeout(() => {
+      itResult([
+        '<span class="tg">Welcome to Manthan\'s portfolio terminal.</span>',
+        '<span class="td">Type <span class="tg">help</span> for available commands, or try <span class="tc">neofetch</span>.</span>',
+      ]);
+    }, 200);
+
+    // update neofetch uptime live
+    setInterval(() => {
+      const el = document.getElementById('nf-uptime');
+      if (el) el.textContent = document.getElementById('upt').textContent;
+    }, 1000);
+
+    /* ── CONTACT FORM ── */
+    function submitForm(e) {
+      e.preventDefault();
+      const b = document.getElementById('cf-btn');
+      b.textContent = 'message --sent ✓';
+      b.style.color = 'var(--green)';
+      b.style.borderColor = 'rgba(0,255,136,.4)';
+      b.style.background = 'rgba(0,255,136,.05)';
+    }
+  </script>
 </body>
+
 </html>
